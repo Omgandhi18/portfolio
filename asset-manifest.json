@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.7fb378e3.css",
-    "main.js": "/portfolio/static/js/main.8e8314fa.js",
+    "main.js": "/portfolio/static/js/main.882c6e94.js",
     "static/js/453.1407b060.chunk.js": "/portfolio/static/js/453.1407b060.chunk.js",
     "static/media/CampusCoin.png": "/portfolio/static/media/CampusCoin.58069db3cb279ec95d87.png",
     "static/media/OG Weather.png": "/portfolio/static/media/OG Weather.e9f06e68c8bcf5bd0abd.png",
     "static/media/Translo.png": "/portfolio/static/media/Translo.9b83dd8a60132f5b3874.png",
     "index.html": "/portfolio/index.html",
     "main.7fb378e3.css.map": "/portfolio/static/css/main.7fb378e3.css.map",
-    "main.8e8314fa.js.map": "/portfolio/static/js/main.8e8314fa.js.map",
+    "main.882c6e94.js.map": "/portfolio/static/js/main.882c6e94.js.map",
     "453.1407b060.chunk.js.map": "/portfolio/static/js/453.1407b060.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7fb378e3.css",
-    "static/js/main.8e8314fa.js"
+    "static/js/main.882c6e94.js"
   ]
 }

@@ -19,8 +19,8 @@ const About = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h3 className="text-2xl font-medium mb-4 text-left">Skills</h3>
-            <ul className="text-lg text-gray-700 space-y-2 text-left">
+            <h3 className="text-2xl font-medium mb-4">Skills</h3>
+            <ul className="text-lg text-gray-700 space-y-2">
               <li>🌐 Front-end Development (React, Tailwind CSS)</li>
               <li>📱 iOS Development (SwiftUI, Swift)</li>
               <li>🧠 UX/UI Design (Figma)</li>
@@ -28,8 +28,8 @@ const About = () => {
             </ul>
           </div>
           <div>
-            <h3 className="text-2xl font-medium mb-4 text-left">Hobbies</h3>
-            <ul className="text-lg text-gray-700 space-y-2 text-left">
+            <h3 className="text-2xl font-medium mb-4">Hobbies</h3>
+            <ul className="text-lg text-gray-700 space-y-2">
               <li>🎮 Gaming</li>
               <li>🎬 Watching Movies</li>
               <li>✈️ Traveling</li>

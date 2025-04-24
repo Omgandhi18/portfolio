@@ -8,7 +8,7 @@ const experience = [
                     Assisted in optimizing code performance and memory management across multiple languages, focusing on algorithm efficiency and clean architecture principles.`,
     },
     {
-      role: "iOS Developer Intern",
+      role: "iOS Developer",
       company: "Athulya Tech",
       duration: "Jan 2023 – Dec 2023",
       description: `Designed and developed multiple high-performance iOS applications using SwiftUI and UIKit, improving app load times by 50% and performance by 40%. Migrated dependencies to Swift Package Manager, resulting in 25% faster build times and streamlined project maintenance.

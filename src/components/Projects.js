@@ -2,6 +2,7 @@ import React from "react";
 import TransloImage from "../assets/Translo.png";
 import CampusCoin from "../assets/CampusCoin.png";
 import OGWeather from "../assets/OG Weather.png";
+import SpotlightCard from "../Animations/SpotlightCard";
 
 const projects = [
   {
@@ -26,36 +27,38 @@ const projects = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-16 bg-white">
+    <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-16 bg-white dark:bg-stone-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 sm:mb-12">Projects</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-7xl font-condiment mb-8 sm:mb-12 text-black dark:text-white">Projects</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:scale-[1.02]">
-              <div className="aspect-video w-full overflow-hidden">
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-4 sm:p-6">
-                <h3 className="text-xl font-semibold text-black mb-3">{project.title}</h3>
-                <p className="text-gray-700 mb-4 text-sm sm:text-base">{project.description}</p>
-                <a
-                  href={project.link}
-                  className="text-blue-500 hover:underline inline-flex items-center"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View Project
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
-              </div>
+            <SpotlightCard
+            spotlightColor="rgba(168, 218, 220, 0.25)">
+              <div className="aspect-video w-full overflow-hidden rounded-lg shadow-lg">
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-4 sm:p-6 font-montserrat">
+                  <h3 className="text-xl font-semibold text-black dark:text-white mb-3">{project.title}</h3>
+                  <p className="text-gray-700 dark:text-gray-300 mb-4 text-sm sm:text-base">{project.description}</p>
+                  <a
+                    href={project.link}
+                    className="text-stone-950 dark:text-white hover:underline inline-flex items-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Project
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
             </div>
+            </SpotlightCard>
+            
           ))}
         </div>
       </div>

@@ -27,14 +27,14 @@ const Hero = () => {
             ]}
             wrapper="span"
             speed={50}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white"
             repeat={Infinity}
           />
         </div>
       </motion.div>
 
       <motion.p
-        className="text-base sm:text-lg md:text-xl text-gray-600 max-w-xl mb-8"
+        className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-xl mb-8 font-montserrat"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.3 }}
@@ -51,7 +51,7 @@ const Hero = () => {
         className="cursor-pointer"
       >
         <motion.button
-          className="bg-black text-white px-5 py-2 sm:px-6 sm:py-3 rounded-full font-medium hover:bg-gray-800 transition"
+          className="bg-black dark:bg-white text-white dark:text-black px-5 py-2 sm:px-6 sm:py-3 rounded-full font-montserrat hover:bg-gray-800 dark:hover:bg-gray-200 transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >

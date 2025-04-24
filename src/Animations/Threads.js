@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Renderer, Program, Mesh, Triangle, Color } from "ogl";
 
 const vertexShader = `
@@ -23,9 +23,10 @@ uniform vec2 uMouse;
 
 #define PI 3.1415926538
 
-const int u_line_count = 40;
-const float u_line_width = 7.0;
-const float u_line_blur = 10.0;
+// Adjust line count based on screen size
+uniform float uLineCount;
+uniform float uLineWidth;
+uniform float uLineBlur;
 
 float Perlin2D(vec2 P) {
     vec2 Pi = floor(P);
@@ -73,14 +74,14 @@ float lineFn(vec2 st, float width, float perc, float offset, vec2 mouse, float t
     float y = 0.5 + (perc - 0.5) * distance + xnoise / 2.0 * finalAmplitude;
 
     float line_start = smoothstep(
-        y + (width / 2.0) + (u_line_blur * pixel(1.0, iResolution.xy) * blur),
+        y + (width / 2.0) + (uLineBlur * pixel(1.0, iResolution.xy) * blur),
         y,
         st.y
     );
 
     float line_end = smoothstep(
         y,
-        y - (width / 2.0) - (u_line_blur * pixel(1.0, iResolution.xy) * blur),
+        y - (width / 2.0) - (uLineBlur * pixel(1.0, iResolution.xy) * blur),
         st.y
     );
 
@@ -95,11 +96,14 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec2 uv = fragCoord / iResolution.xy;
 
     float line_strength = 1.0;
-    for (int i = 0; i < u_line_count; i++) {
-        float p = float(i) / float(u_line_count);
+    for (int i = 0; i < 50; i++) {
+        // Only process up to uLineCount lines
+        if (float(i) >= uLineCount) break;
+        
+        float p = float(i) / uLineCount;
         line_strength *= (1.0 - lineFn(
             uv,
-            u_line_width * pixel(1.0, iResolution.xy) * (1.0 - p),
+            uLineWidth * pixel(1.0, iResolution.xy) * (1.0 - p),
             p,
             (PI * 1.0) * p,
             uMouse,
@@ -118,27 +122,60 @@ void main() {
 }
 `;
 
+// Responsive settings based on screen size
+const getResponsiveSettings = (width) => {
+  if (width < 480) { // Mobile
+    return {
+      lineCount: 24,
+      lineWidth: 5,
+      lineBlur: 8
+    };
+  } else if (width < 1024) { // Tablet
+    return {
+      lineCount: 32,
+      lineWidth: 6,
+      lineBlur: 9
+    };
+  } else { // Desktop
+    return {
+      lineCount: 40,
+      lineWidth: 7,
+      lineBlur: 10
+    };
+  }
+};
+
 const Threads = ({
   color = [1, 1, 1],
   amplitude = 1,
   distance = 0,
-  enableMouseInteraction = false,
+  enableMouseInteraction = true,
+  className = "",
   ...rest
 }) => {
   const containerRef = useRef(null);
+  const rendererRef = useRef(null);
+  const programRef = useRef(null);
   const animationFrameId = useRef();
+  const [deviceSettings, setDeviceSettings] = useState(() => 
+    getResponsiveSettings(typeof window !== 'undefined' ? window.innerWidth : 1200)
+  );
+  const touchActive = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
     const container = containerRef.current;
 
-    const renderer = new Renderer({ alpha: true });
+    // Create renderer
+    const renderer = new Renderer({ alpha: true, antialias: true });
+    rendererRef.current = renderer;
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     container.appendChild(gl.canvas);
 
+    // Create program with responsive uniforms
     const geometry = new Triangle(gl);
     const program = new Program(gl, {
       vertex: vertexShader,
@@ -156,38 +193,84 @@ const Threads = ({
         uAmplitude: { value: amplitude },
         uDistance: { value: distance },
         uMouse: { value: new Float32Array([0.5, 0.5]) },
+        uLineCount: { value: deviceSettings.lineCount },
+        uLineWidth: { value: deviceSettings.lineWidth },
+        uLineBlur: { value: deviceSettings.lineBlur }
       },
     });
+    programRef.current = program;
 
     const mesh = new Mesh(gl, { geometry, program });
 
+    // Handle device-specific settings on resize
     function resize() {
       const { clientWidth, clientHeight } = container;
+      
+      // Update renderer size
       renderer.setSize(clientWidth, clientHeight);
+      
+      // Update resolution uniform
       program.uniforms.iResolution.value.r = clientWidth;
       program.uniforms.iResolution.value.g = clientHeight;
       program.uniforms.iResolution.value.b = clientWidth / clientHeight;
+      
+      // Update responsive settings
+      const newSettings = getResponsiveSettings(clientWidth);
+      program.uniforms.uLineCount.value = newSettings.lineCount;
+      program.uniforms.uLineWidth.value = newSettings.lineWidth;
+      program.uniforms.uLineBlur.value = newSettings.lineBlur;
+      
+      // Update state for potential re-renders
+      setDeviceSettings(newSettings);
     }
+    
     window.addEventListener("resize", resize);
     resize();
 
+    // Mouse and touch interaction
     let currentMouse = [0.5, 0.5];
     let targetMouse = [0.5, 0.5];
 
-    function handleMouseMove(e) {
+    function handlePointerMove(e) {
+      if (!enableMouseInteraction) return;
       const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height;
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+      
+      const x = (clientX - rect.left) / rect.width;
+      const y = 1.0 - (clientY - rect.top) / rect.height;
       targetMouse = [x, y];
     }
-    function handleMouseLeave() {
+    
+    function handlePointerLeave() {
+      if (!touchActive.current) {
+        targetMouse = [0.5, 0.5];
+      }
+    }
+    
+    function handleTouchStart(e) {
+      touchActive.current = true;
+      handlePointerMove(e);
+    }
+    
+    function handleTouchEnd() {
+      touchActive.current = false;
       targetMouse = [0.5, 0.5];
     }
+
     if (enableMouseInteraction) {
-      container.addEventListener("mousemove", handleMouseMove);
-      container.addEventListener("mouseleave", handleMouseLeave);
+      // Mouse events
+      container.addEventListener("mousemove", handlePointerMove);
+      container.addEventListener("mouseleave", handlePointerLeave);
+      
+      // Touch events for mobile
+      container.addEventListener("touchstart", handleTouchStart, { passive: true });
+      container.addEventListener("touchmove", handlePointerMove, { passive: true });
+      container.addEventListener("touchend", handleTouchEnd);
+      container.addEventListener("touchcancel", handleTouchEnd);
     }
 
+    // Animation loop
     function update(t) {
       if (enableMouseInteraction) {
         const smoothing = 0.05;
@@ -204,23 +287,48 @@ const Threads = ({
       renderer.render({ scene: mesh });
       animationFrameId.current = requestAnimationFrame(update);
     }
+    
     animationFrameId.current = requestAnimationFrame(update);
 
+    // Cleanup
     return () => {
-      if (animationFrameId.current)
+      if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
+      }
       window.removeEventListener("resize", resize);
 
       if (enableMouseInteraction) {
-        container.removeEventListener("mousemove", handleMouseMove);
-        container.removeEventListener("mouseleave", handleMouseLeave);
+        container.removeEventListener("mousemove", handlePointerMove);
+        container.removeEventListener("mouseleave", handlePointerLeave);
+        container.removeEventListener("touchstart", handleTouchStart);
+        container.removeEventListener("touchmove", handlePointerMove);
+        container.removeEventListener("touchend", handleTouchEnd);
+        container.removeEventListener("touchcancel", handleTouchEnd);
       }
-      if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
+      
+      if (container.contains(gl.canvas)) {
+        container.removeChild(gl.canvas);
+      }
+      
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [color, amplitude, distance, enableMouseInteraction]);
+  }, [
+    color, 
+    amplitude, 
+    distance, 
+    enableMouseInteraction, 
+    deviceSettings.lineCount, 
+    deviceSettings.lineWidth, 
+    deviceSettings.lineBlur
+  ]);
 
-  return <div ref={containerRef} className="w-full h-full relative" {...rest} />;
+  return (
+    <div 
+      ref={containerRef}
+      className={`w-full h-full relative ${className}`}
+      {...rest}
+    />
+  );
 };
 
 export default Threads;

@@ -22,6 +22,7 @@ function App() {
                 amplitude={1.2}
                 distance={0.4}
                 enableMouseInteraction={true}
+                color={[0.384,0.714,0.796]}
               />
             </div>
             

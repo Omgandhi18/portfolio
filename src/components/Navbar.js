@@ -22,14 +22,6 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 lg:space-x-8 text-lg text-gray-700 dark:text-gray-300 items-center font-montserrat">
           <Link
-            to="hero"
-            smooth={true}
-            duration={500}
-            className="hover:text-black dark:hover:text-white transition cursor-pointer"
-          >
-            Home
-          </Link>
-          <Link
             to="about"
             smooth={true}
             duration={500}
@@ -122,15 +114,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white dark:bg-stone-950 py-4 px-4 mt-2 rounded-lg shadow-lg transition-colors duration-300 font-montserrat">
           <div className="flex flex-col space-y-4">
-            <Link
-              to="hero"
-              smooth={true}
-              duration={500}
-              className="hover:text-black dark:hover:text-white transition py-2 cursor-pointer text-gray-700 dark:text-gray-300"
-              onClick={closeMenu}
-            >
-              Home
-            </Link>
+            
             <Link
               to="about"
               smooth={true}

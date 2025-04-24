@@ -3,6 +3,7 @@ import TransloImage from "../assets/Translo.png";
 import CampusCoin from "../assets/CampusCoin.png";
 import OGWeather from "../assets/OG Weather.png";
 import SpotlightCard from "../Animations/SpotlightCard";
+import ScrollReveal from "../Animations/ScrollReveal";
 
 const projects = [
   {
@@ -29,12 +30,19 @@ const Projects = () => {
   return (
     <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-16 bg-white dark:bg-stone-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-7xl font-condiment mb-8 sm:mb-12 text-black dark:text-white">Projects</h2>
+        <ScrollReveal>
+          <h2 className="text-2xl sm:text-3xl md:text-7xl font-condiment mb-8 sm:mb-12 text-black dark:text-white">Projects</h2>
+        </ScrollReveal>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
-            <SpotlightCard
-            spotlightColor="rgba(168, 218, 220, 0.25)">
-              <div className="aspect-video w-full overflow-hidden rounded-lg shadow-lg">
+            <ScrollReveal 
+              key={project.title} 
+              delay={0.2 + index * 0.1} 
+              direction={index % 2 === 0 ? "up" : "down"}
+            >
+              <SpotlightCard spotlightColor="rgba(168, 218, 220, 0.25)">
+                <div className="aspect-video w-full overflow-hidden rounded-lg shadow-lg">
                   <img
                     src={project.imageUrl}
                     alt={project.title}
@@ -56,9 +64,9 @@ const Projects = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </a>
-            </div>
-            </SpotlightCard>
-            
+                </div>
+              </SpotlightCard>
+            </ScrollReveal>
           ))}
         </div>
       </div>

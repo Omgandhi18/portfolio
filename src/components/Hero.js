@@ -18,16 +18,18 @@ const Hero = () => {
         <div className="mb-4 h-16 sm:h-20 md:h-24 overflow-hidden">
           <TypeAnimation
             sequence={[
-              "Hi, I'm Om 👋",
+              "नमस्ते! 🙏🏻",
               1000,
-              "Hi, I'm a Front End Dev 💻",
+              "I'm Om! 👋",
               1000,
-              "Hi, I'm a Mobile Dev 📱",
+              "A Front End Dev 💻",
+              1000,
+              "And a Mobile Dev 📱",
               1000,
             ]}
             wrapper="span"
             speed={50}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-black dark:text-white"
             repeat={Infinity}
           />
         </div>

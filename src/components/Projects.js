@@ -1,6 +1,6 @@
 import React from "react";
 import TransloImage from "../assets/Translo.png";
-import CampusCoin from "../assets/CampusCoin.png";
+import OinkImage from "../assets/Oink.png";
 import OGWeather from "../assets/OG Weather.png";
 import SpotlightCard from "../Animations/SpotlightCard";
 import ScrollReveal from "../Animations/ScrollReveal";
@@ -13,9 +13,9 @@ const projects = [
     link: "https://apps.apple.com/gb/app/translo/id6659895212",
   },
   {
-    title: "Campus Coin",
-    description: "Campus Coin is a simple and intuitive expense tracker designed for students.",
-    imageUrl: CampusCoin,
+    title: "Oink!",
+    description: "Essentially a piggy bank app that allows you to save money and track your savings.",
+    imageUrl: OinkImage,
     link: "https://apps.apple.com/gb/app/campus-coin/id6705128036",
   },
   {
@@ -31,7 +31,7 @@ const Projects = () => {
     <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-16 bg-white dark:bg-stone-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto text-center">
         <ScrollReveal>
-          <h2 className="text-2xl sm:text-3xl md:text-7xl font-condiment mb-8 sm:mb-12 text-black dark:text-white">Projects</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-montserrat font-semibold mb-8 sm:mb-12 text-black dark:text-white">Projects</h2>
         </ScrollReveal>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

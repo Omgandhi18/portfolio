@@ -10,19 +10,11 @@ const About = () => {
     >
       <div className="max-w-7xl mx-auto text-center">
         <ScrollReveal>
-          <h2 className="text-2xl sm:text-3xl md:text-7xl font-condiment mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-montserrat font-semibold mb-6 sm:mb-8">
             About Me
           </h2>
         </ScrollReveal>
         
-        <ScrollReveal delay={0.2}>
-          <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-white mb-8 max-w-3xl mx-auto font-montserrat">
-            Hi! I'm Om, a passionate developer and designer who loves to
-            create beautiful and functional digital experiences. With a strong
-            background in both front-end and mobile application development, I am always
-            looking for new challenges that allow me to grow and make an impact.
-          </p>
-        </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           <ScrollReveal direction="left" delay={0.3}>
@@ -31,23 +23,23 @@ const About = () => {
               spotlightColor="rgba(14, 165, 233, 0.15)"
             >
               <div className="text-gray-800 dark:text-white font-montserrat">
-                <h3 className="text-xl sm:text-2xl mb-4">Skills</h3>
+                <h3 className="text-xl sm:text-2xl font-medium mb-4">Skills</h3>
                 <ul className="text-base sm:text-lg text-gray-800 dark:text-gray-300 space-y-2">
                   <li className="flex items-start">
-                    <span className="mr-2">🌐</span>
-                    <span>Front-end Development (React)</span>
-                  </li>
-                  <li className="flex items-start">
                     <span className="mr-2">📱</span>
-                    <span>iOS Development (SwiftUI, Swift)</span>
+                    <span>React Native, SwiftUI, Swift</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="mr-2">🧠</span>
-                    <span>UX/UI Design (Figma)</span>
+                    <span className="mr-2">📈</span>
+                    <span>Python, R, PowerBI</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">✍🏻</span>
+                    <span>Figma</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2">💾</span>
-                    <span>Database Management (Firebase)</span>
+                    <span>Firebase, Realm</span>
                   </li>
                 </ul>
               </div>

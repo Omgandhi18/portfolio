@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white dark:bg-stone-950 py-4 px-4 md:px-6 transition-colors duration-300">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="text-xl md:text-2xl font-condiment text-black dark:text-white">Om Gandhi</div>
+        <div className="text-xl md:text-2xl font-montserrat text-black dark:text-white">Om Gandhi</div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 lg:space-x-8 text-lg text-gray-700 dark:text-gray-300 items-center font-montserrat">

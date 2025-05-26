@@ -7,7 +7,7 @@ const Experience = () => {
     <section id="experience" className="py-12 sm:py-16 px-4 sm:px-6 md:px-16 bg-white dark:bg-stone-950 transition-colors duration-300">
       <div className="max-w-5xl mx-auto text-center">
         <ScrollReveal>
-          <h2 className="text-2xl sm:text-3xl md:text-7xl font-condiment mb-8 sm:mb-12 text-black dark:text-white">Experience</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-montserrat font-semibold mb-8 sm:mb-12 text-black dark:text-white">Experience</h2>
         </ScrollReveal>
         
         <div className="space-y-4 sm:space-y-6 md:space-y-8">

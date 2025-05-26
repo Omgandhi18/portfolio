@@ -7,7 +7,7 @@ const Contact = () => {
     <section id="contact" className="py-12 sm:py-16 px-4 sm:px-6 md:px-16 bg-white dark:bg-stone-950 text-center transition-colors duration-300">
       <div className="max-w-3xl mx-auto">
         <ScrollReveal>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-condiment mb-6 sm:mb-8 text-black dark:text-white">Let's Connect</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-3xl font-montserrat font-semibold mb-6 sm:mb-8 text-black dark:text-white">Let's Connect</h2>
         </ScrollReveal>
         
         <ScrollReveal delay={0.2}>

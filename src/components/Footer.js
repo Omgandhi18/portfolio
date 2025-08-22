@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-gradient-to-t from-gray-900 to-gray-800 dark:from-stone-950 dark:to-stone-900 text-white overflow-hidden">
+    <footer className="relative bg-gradient-to-t from-gray-50 to-white dark:from-stone-950 dark:to-stone-900 text-white overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -19,22 +19,9 @@ const Footer = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-16 py-12">
         <ScrollReveal direction="up" delay={0.1} threshold={0.1}>
           <div className="text-center space-y-6">
-            {/* Logo/Name */}
-            <motion.div
-              className="inline-block"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <h3 className="text-2xl md:text-3xl font-bold font-inter">
-                <span className="bg-gradient-to-r from-coral-400 to-tea-green-500 bg-clip-text text-transparent">
-                  Om Gandhi
-                </span>
-              </h3>
-            </motion.div>
-
             {/* Tagline */}
             <motion.p
-              className="text-gray-300 text-lg font-inter max-w-md mx-auto"
+              className="text-gray-700 text-lg font-inter max-w-md mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -45,7 +32,7 @@ const Footer = () => {
 
             {/* Made with love section */}
             <motion.div
-              className="flex items-center justify-center gap-2 text-gray-400 font-inter"
+              className="flex items-center justify-center gap-2 text-gray-600 font-inter"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -124,7 +111,7 @@ const Footer = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              <p className="text-gray-400 text-sm font-inter">
+              <p className="text-gray-500 text-sm font-inter">
                 © {currentYear} Om Gandhi. All rights reserved.
               </p>
               <motion.p

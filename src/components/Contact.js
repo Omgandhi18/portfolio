@@ -185,7 +185,7 @@ const Contact = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <span className="bg-gradient-to-r from-gray-900 via-sandy-brown-600 to-coral-600 dark:from-white dark:via-sandy-brown-200 dark:to-coral-200 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-coral-500 via-coral-600 to-salmon-pink-600 dark:from-white dark:via-sandy-brown-200 dark:to-coral-200 bg-clip-text text-transparent">
                 Let's Connect
               </span>
             </motion.h2>

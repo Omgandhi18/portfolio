@@ -219,7 +219,7 @@ const Projects = () => {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-coral-500 to-tea-green-500 rounded-full opacity-20"
+            className="absolute w-2 h-2 bg-gradient-to-r from-coral-500 to-salmon-pink-600 rounded-full opacity-20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -250,9 +250,9 @@ const Projects = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-                        <span className="bg-gradient-to-r from-gray-900 via-coral-600 to-tea-green-600 dark:from-white dark:via-coral-200 dark:to-tea-green-200 bg-clip-text text-transparent">
-            My Projects
-          </span>
+              <span className="bg-gradient-to-r from-coral-500 via-coral-600 to-salmon-pink-600 dark:from-white dark:via-coral-200 dark:to-salmon-pink-200 bg-clip-text text-transparent">
+                My Projects
+              </span>
             </motion.h2>
             
             <motion.p

@@ -3,10 +3,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-scroll"; 
 import { TypeAnimation } from 'react-type-animation';
 import { useInView } from 'react-intersection-observer';
+import HeroImage from "../assets/Hero.png"; // Placeholder for hero image
 
 const FloatingOrb = ({ delay = 0, duration = 4, className = "" }) => (
   <motion.div
-    className={`absolute rounded-full bg-gradient-to-r from-coral-400/20 to-blush-500/20 blur-xl ${className}`}
+    className={`absolute rounded-full bg-gradient-to-r from-coral-500/15 to-coral-600/15 blur-xl ${className}`}
     animate={{
       y: [0, -30, 0],
       x: [0, 20, 0],
@@ -23,10 +24,10 @@ const FloatingOrb = ({ delay = 0, duration = 4, className = "" }) => (
 
 const GlowingCard = ({ children, className = "" }) => (
   <motion.div
-    className={`glass rounded-3xl p-8 backdrop-blur-lg border border-white/20 shadow-2xl ${className}`}
+    className={`bg-white rounded-3xl p-8 backdrop-blur-lg border border-gray-100 shadow-xl ${className}`}
     whileHover={{ 
       scale: 1.02,
-      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+      boxShadow: "0 25px 50px -12px rgba(255, 127, 81, 0.15)",
     }}
     transition={{ type: "spring", stiffness: 300, damping: 30 }}
   >
@@ -40,7 +41,7 @@ const ParticleField = () => {
   useEffect(() => {
     const createParticle = () => {
       const particle = document.createElement('div');
-      particle.className = 'absolute w-1 h-1 bg-gradient-to-r from-coral-400 to-blush-500 rounded-full opacity-30';
+      particle.className = 'absolute w-1 h-1 bg-gradient-to-r from-coral-500 to-coral-600 rounded-full opacity-20';
       particle.style.left = Math.random() * 100 + '%';
       particle.style.top = Math.random() * 100 + '%';
       particle.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
@@ -98,11 +99,11 @@ const Hero = () => {
     <motion.section
       ref={ref}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-start px-4 sm:px-6 md:px-16 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center items-start px-4 sm:px-6 md:px-16 overflow-hidden bg-white"
       style={{ y, opacity }}
     >
       {/* Background Elements */}
-      <div className="absolute inset-0 mesh-gradient opacity-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 opacity-50" />
       <ParticleField />
       
       {/* Floating Orbs */}
@@ -121,7 +122,7 @@ const Hero = () => {
           {/* Text Content */}
           <motion.div className="lg:col-span-7" variants={itemVariants}>
             <motion.div 
-              className="mb-6 overflow-hidden"
+              className="mb-8"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
@@ -135,14 +136,14 @@ const Hero = () => {
                   1500,
                   "Mobile App Creator 📱",
                   1500,
-                  "UI/UX Enthusiast 🎨",
+                  "UI Enthusiast 🎨",
                   1500,
                 ]}
                 wrapper="h1"
                 speed={50}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-inter leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-inter leading-tight text-gray-900"
                 style={{
-                  background: 'linear-gradient(135deg, #ff7f51 0%, #ff9b54 25%, #ffa5ab 50%, #da627d 75%, #87bba2 100%)',
+                  background: 'linear-gradient(135deg, #ff7f51 0%, #ff6b47 25%, #ff5a3d 50%, #ff4533 75%, #ff3029 100%)',
                   backgroundClip: 'text',
                   backgroundSize: '200% 200%',
                   animation: 'gradient 3s ease infinite'
@@ -152,12 +153,12 @@ const Hero = () => {
             </motion.div>
 
             <motion.p
-              className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mb-8 font-inter leading-relaxed"
+              className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-2xl mb-8 font-inter leading-relaxed"
               variants={itemVariants}
             >
-              Crafting <span className="text-gradient font-semibold">digital experiences</span> that 
+              Crafting <span className="text-coral-500 font-semibold">digital experiences</span> that 
               blend creativity with functionality. I turn ideas into 
-              <span className="text-gradient font-semibold"> beautiful interfaces</span> and 
+              <span className="text-coral-500 font-semibold"> beautiful interfaces</span> and 
               robust applications.
             </motion.p>
             
@@ -173,13 +174,13 @@ const Hero = () => {
                 className="cursor-pointer"
               >
                 <motion.button
-                  className="group relative px-8 py-4 bg-gradient-to-r from-coral-600 to-sandy-brown-600 text-white font-semibold rounded-2xl overflow-hidden font-inter"
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
+                  className="group relative px-8 py-4 bg-gradient-to-r from-coral-500 to-coral-600 text-white font-semibold rounded-2xl overflow-hidden font-inter shadow-lg"
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255, 127, 81, 0.25)" }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-sandy-brown-600 to-coral-600"
+                    className="absolute inset-0 bg-gradient-to-r from-coral-600 to-coral-700"
                     initial={{ x: "-100%" }}
                     whileHover={{ x: 0 }}
                     transition={{ duration: 0.3 }}
@@ -196,10 +197,10 @@ const Hero = () => {
                 className="cursor-pointer"
               >
                 <motion.button
-                  className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-2xl font-inter backdrop-blur-sm"
+                  className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-2xl font-inter backdrop-blur-sm hover:bg-gray-50"
                   whileHover={{ 
                     scale: 1.05,
-                    backgroundColor: "rgba(255,255,255,0.1)",
+                    backgroundColor: "rgba(255,255,255,0.8)",
                     borderColor: "rgba(255, 127, 81, 0.5)"
                   }}
                   whileTap={{ scale: 0.95 }}
@@ -213,67 +214,61 @@ const Hero = () => {
 
           {/* 3D Interactive Card */}
           <motion.div 
-            className="lg:col-span-5 flex justify-center"
+            className="lg:col-span-5 flex justify-center mt-8 lg:mt-0"
             variants={itemVariants}
           >
-            <GlowingCard className="w-full max-w-md">
-              <div className="text-center space-y-6">
+            <GlowingCard className="w-full max-w-sm sm:max-w-md">
+              <div className="text-center space-y-4 sm:space-y-6">
+                {/* Circular Profile Image */}
                 <motion.div
-                  className="w-20 h-20 mx-auto bg-gradient-to-r from-salmon-pink-500 to-coral-600 rounded-2xl flex items-center justify-center"
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full overflow-hidden shadow-lg border-3 border-gray-100"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <span className="text-3xl">👨‍💻</span>
+                  {/* Replace with your actual image */}
+                  <img 
+                    src={HeroImage}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
                 </motion.div>
                 
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white font-inter mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 font-inter mb-2">
                     Ready to Build
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 font-inter">
+                  <p className="text-sm sm:text-base text-gray-600 font-inter">
                     Currently open for exciting projects and collaborations
                   </p>
                 </div>
+                <br></br>
+                <p className="text-xs sm:text-sm text-gray-500 font-inter">
+                  Scroll to explore
+                </p>
                 
-                <motion.div 
-                  className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden"
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 2, delay: 1 }}
+                {/* Scroll Indicator - moved inside card */}
+                <motion.div
+                  className="flex justify-center pt-2 sm:pt-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2, duration: 0.8 }}
                 >
                   <motion.div
-                    className="h-full bg-gradient-to-r from-salmon-pink-500 to-coral-600 rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: "85%" }}
-                    transition={{ duration: 2, delay: 1.5 }}
-                  />
+                    className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-gray-400 rounded-full flex justify-center"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <motion.div
+                      className="w-0.5 h-1.5 sm:w-1 sm:h-2 bg-gradient-to-b from-coral-500 to-coral-600 rounded-full mt-1.5 sm:mt-2"
+                      animate={{ y: [0, 8, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
+                  </motion.div>
                 </motion.div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 font-inter">
-                  Availability: 85%
-                </p>
+                
               </div>
             </GlowingCard>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.8 }}
-        >
-          <motion.div
-            className="w-6 h-10 border-2 border-gray-400 dark:border-gray-600 rounded-full flex justify-center"
-            whileHover={{ scale: 1.1 }}
-          >
-            <motion.div
-              className="w-1 h-2 bg-gradient-to-b from-accent-500 to-peach-600 rounded-full mt-2"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-          </motion.div>
-        </motion.div>
       </motion.div>
     </motion.section>
   );

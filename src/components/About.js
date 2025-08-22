@@ -180,7 +180,7 @@ const About = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <span className="bg-gradient-to-r from-gray-900 via-coral-600 to-salmon-pink-600 dark:from-white dark:via-coral-200 dark:to-salmon-pink-200 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-coral-500 via-coral-600 to-salmon-pink-600 dark:from-white dark:via-coral-200 dark:to-salmon-pink-200 bg-clip-text text-transparent">
                 About Me
               </span>
             </motion.h2>

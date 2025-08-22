@@ -363,7 +363,7 @@ const DeviceMockup = () => {
   };
 
   return (
-    <div ref={containerRef} className="relative h-[100vh] overflow-hidden bg-gray-50 mt-50 sm:mt-32 md:mt-10"> {/* Increased tablet margin */}
+    <div ref={containerRef} className="relative h-[100vh] overflow-hidden bg-gray-50 mt-24 sm:mt-24 md:mt-32 lg:mt-10"> {/* Increased top margin for mobile/tablet */}
       {/* Hero Content - Will shrink into device */}
       <div 
         ref={heroContentRef}

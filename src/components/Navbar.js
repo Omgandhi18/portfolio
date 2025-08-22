@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
@@ -88,7 +88,7 @@ const Navbar = () => {
                 </motion.div>
               ))}
 
-              {/* Theme Toggle - Removed for white theme */}
+              {/* Theme Toggle - Removed for white theme
               <motion.div
                 className="ml-4 p-3 rounded-xl bg-gray-100 border border-gray-200"
                 initial={{ opacity: 0 }}
@@ -100,7 +100,7 @@ const Navbar = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
-              </motion.div>
+              </motion.div> */}
             </div>
 
             {/* Mobile Menu Button */}
@@ -119,23 +119,23 @@ const Navbar = () => {
                   <motion.span
                     variants={{
                       closed: { rotate: 0, y: 0 },
-                      open: { rotate: 45, y: 3 }
+                      open: { rotate: 45, y: 8 }
                     }}
-                    className="w-6 h-0.5 bg-gray-700 block mb-1.5 transform origin-center transition-all duration-300"
+                    className="w-6 h-0.5 bg-gray-700 block mb-1.5 transform origin-center transition-all duration-100"
                   />
                   <motion.span
                     variants={{
                       closed: { opacity: 1 },
                       open: { opacity: 0 }
                     }}
-                    className="w-6 h-0.5 bg-gray-700 block mb-1.5 transform origin-center transition-all duration-300"
+                    className="w-6 h-0.5 bg-gray-700 block mb-1.5 transform origin-center transition-all duration-100"
                   />
                   <motion.span
                     variants={{
                       closed: { rotate: 0, y: 0 },
-                      open: { rotate: -45, y: -3 }
+                      open: { rotate: -45, y: -8 }
                     }}
-                    className="w-6 h-0.5 bg-gray-700 block transform origin-center transition-all duration-300"
+                    className="w-6 h-0.5 bg-gray-700 block transform origin-center transition-all duration-100"
                   />
                 </motion.div>
               </motion.button>
@@ -145,50 +145,36 @@ const Navbar = () => {
       </motion.nav>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeMenu}
-            />
+      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          onClick={closeMenu}
+        />
 
-            {/* Mobile Menu */}
-            <motion.div
-              className="fixed top-20 right-4 bg-white/95 backdrop-blur-xl rounded-3xl border border-gray-200 shadow-xl z-50 md:hidden overflow-hidden"
-              initial={{ opacity: 0, scale: 0.9, x: 50 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.9, x: 50 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              <div className="p-6 space-y-4 min-w-[200px]">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                  >
-                    <Link
-                      to={item.to}
-                      smooth={true}
-                      duration={500}
-                      className="block py-3 px-4 text-gray-700 hover:text-gray-900 font-medium font-inter cursor-pointer rounded-xl hover:bg-coral-50 transition-all duration-200"
-                      onClick={closeMenu}
-                    >
-                      {item.name}
-                    </Link>
-                  </motion.div>
-                ))}
+        {/* Mobile Menu */}
+        <div className={`absolute top-20 right-4 bg-white/95 backdrop-blur-xl rounded-3xl border border-gray-200 shadow-xl overflow-hidden transition-all duration-300 ${isMenuOpen ? 'opacity-100 scale-100 translate-x-0' : 'opacity-0 scale-90 translate-x-12'}`}>
+          <div className="p-6 space-y-4 min-w-[200px]">
+            {navItems.map((item, index) => (
+              <div
+                key={item.name}
+                className={`transition-all duration-300 ${isMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-5'}`}
+                style={{ transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms' }}
+              >
+                <Link
+                  to={item.to}
+                  smooth={true}
+                  duration={500}
+                  className="block py-3 px-4 text-gray-700 hover:text-gray-900 font-medium font-inter cursor-pointer rounded-xl hover:bg-coral-50 transition-all duration-200"
+                  onClick={closeMenu}
+                >
+                  {item.name}
+                </Link>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 };

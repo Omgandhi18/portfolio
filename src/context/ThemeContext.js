@@ -1,38 +1,19 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
+  const isDarkMode = false; // Fixed to light theme
   
-  // Check for user preference on initial load
+  // Always ensure light theme is applied
   useEffect(() => {
-    // Check for saved theme preference, default to dark if no preference
-    const savedTheme = localStorage.getItem("theme");
-    
-    if (savedTheme === "light") {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
-    } else {
-      // Default to dark mode (even if no saved preference)
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
   }, []);
   
-  // Update when theme changes
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDarkMode]);
-  
+  // No-op function for compatibility with existing components
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+    // Theme is fixed to light, so no toggle action
   };
   
   return (

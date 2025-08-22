@@ -19,14 +19,14 @@ const ExperienceCard = ({ item, index, isLast }) => {
       <div className="flex flex-col items-center mr-6 relative">
         {/* Timeline dot */}
         <motion.div
-          className="w-4 h-4 bg-gradient-to-r from-coral-500 to-tea-green-600 rounded-full border-4 border-white dark:border-gray-900 shadow-lg relative z-10"
+          className="w-4 h-4 bg-gradient-to-r from-coral-500 to-salmon-pink-600 rounded-full border-4 border-white dark:border-gray-900 shadow-lg relative z-10"
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : { scale: 0 }}
           transition={{ duration: 0.5, delay: (index * 0.2) + 0.3 }}
           whileHover={{ scale: 1.5 }}
         >
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-coral-500 to-tea-green-600 rounded-full"
+            className="absolute inset-0 bg-gradient-to-r from-coral-500 to-salmon-pink-600 rounded-full"
             animate={{ 
               scale: [1, 1.1, 1]
             }}
@@ -37,9 +37,9 @@ const ExperienceCard = ({ item, index, isLast }) => {
         {/* Timeline line */}
         {!isLast && (
           <motion.div
-            className="w-0.5 h-32 bg-gradient-to-b from-coral-500 to-tea-green-600 mt-2"
+            className="w-0.5 h-32 bg-gradient-to-b from-coral-500 to-salmon-pink-600 mt-2"
             initial={{ scaleY: 0 }}
-            animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+            animate={isInView ? { scaleY: 2.5 } : { scaleY: 0 }}
             transition={{ duration: 0.8, delay: (index * 0.2) + 0.5 }}
             style={{ transformOrigin: "top" }}
           />
@@ -76,7 +76,7 @@ const ExperienceCard = ({ item, index, isLast }) => {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.5, delay: (index * 0.2) + 0.5 }}
           >
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-coral-500/10 to-tea-green-500/10 text-coral-600 dark:text-coral-400 border border-coral-500/20">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-coral-500/10 to-salmon-pink-500/10 text-coral-600 dark:text-coral-400 border border-coral-500/20">
               {item.duration}
             </span>
           </motion.div>
@@ -146,14 +146,14 @@ const Experience = () => {
       className="relative py-20 px-4 sm:px-6 md:px-16 bg-gradient-to-b from-white to-gray-50 dark:from-stone-950 dark:to-stone-900 overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-coral-50/30 via-transparent to-tea-green-50/30 dark:from-coral-950/20 dark:via-transparent dark:to-tea-green-950/20" />
-      
+      <div className="absolute inset-0 bg-gradient-to-br from-coral-50/30 via-transparent to-salmon-pink-50/30 dark:from-coral-950/20 dark:via-transparent dark:to-salmon-pink-950/20" />
+
       {/* Floating elements */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-gradient-to-r from-coral-500 to-tea-green-500 rounded-full opacity-30"
+            className="absolute w-1 h-1 bg-gradient-to-r from-coral-500 to-salmon-pink-500 rounded-full opacity-30"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -184,7 +184,7 @@ const Experience = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-                        <span className="bg-gradient-to-r from-gray-900 via-tea-green-600 to-sandy-brown-600 dark:from-white dark:via-tea-green-200 dark:to-sandy-brown-200 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-coral-500 via-salmon-pink-600 to-sandy-brown-600 dark:from-white dark:via-salmon-pink-200 dark:to-sandy-brown-200 bg-clip-text text-transparent">
             Experience
           </span>
             </motion.h2>

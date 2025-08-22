@@ -7,7 +7,7 @@ import Experience from "./components/Experience";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { ThemeProvider } from "./context/ThemeContext";
-import Threads from "./Animations/Threads";
+import ModernBackground from "./Animations/ModernBackground";
 
 function App() {
   return (
@@ -16,17 +16,12 @@ function App() {
         <main>
           <Navbar />
           <div className="relative">
-            {/* Threads positioned absolutely to cover the same area */}
+            {/* Modern 3D Background positioned absolutely to cover the hero area */}
             <div className="absolute inset-0 z-0" style={{ height: '100vh' }}>
-              <Threads
-                amplitude={1.2}
-                distance={0.4}
-                enableMouseInteraction={true}
-                color={[0.824,0.718,0.898]}
-              />
+              <ModernBackground />
             </div>
             
-            {/* Hero section with higher z-index to appear above Threads */}
+            {/* Hero section with higher z-index to appear above background */}
             <div className="relative z-10">
               <Hero />
             </div>

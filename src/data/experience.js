@@ -7,6 +7,7 @@ const experience = [
                   My focus is on building scalable, user-friendly app features that support the company's business intelligence solutions. 
                   I collaborate closely with design, backend, and product teams to ensure smooth integration with APIs and deliver high-quality mobile experiences. 
                   My work involves optimizing performance, maintaining clean code, and continuously enhancing the app's functionality to meet evolving business needs.`,
+    technologies: ["React Native", "TypeScript", "Redux", "REST APIs", "iOS", "Android"]
   },
     {
         role: "Demonstrator",
@@ -15,6 +16,7 @@ const experience = [
         description: `Supported development in C#, Swift, Java, and Python by guiding peers through debugging, logic structuring, and implementation of efficient code solutions.
                     Fostered a collaborative coding environment through peer reviews and technical discussions, strengthening team-based software problem-solving skills.
                     Assisted in optimizing code performance and memory management across multiple languages, focusing on algorithm efficiency and clean architecture principles.`,
+        technologies: ["C#", "Swift", "Java", "Python", "Teaching", "Code Review", "Debugging"]
     },
     {
       role: "iOS Developer",
@@ -22,8 +24,8 @@ const experience = [
       duration: "Jan 2023 – Dec 2023",
       description: `Designed and developed multiple high-performance iOS applications using SwiftUI and UIKit, improving app load times by 50% and performance by 40%. Migrated dependencies to Swift Package Manager, resulting in 25% faster build times and streamlined project maintenance.
                     Integrated RESTful APIs, Firebase Authentication, and Firestore to enhance data security and reduce login times by 30%. Developed engaging UI/UX with custom animations using Lottie and Core Animation, boosting user retention by 25%.
-                    Collaborated with a cross-functional team of 10+ designers and developers, accelerating project delivery by 25% through agile workflows and shared code optimization strategies.
-`,
+                    Collaborated with a cross-functional team of 10+ designers and developers, accelerating project delivery by 25% through agile workflows and shared code optimization strategies.`,
+      technologies: ["Swift", "SwiftUI", "UIKit", "Firebase", "Core Animation", "Lottie", "REST APIs", "SPM"]
     },
     
     // Add more if you like!

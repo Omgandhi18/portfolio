@@ -1,34 +1,39 @@
-const experience = [
+export const experiences = [
   {
-    role: "React Native Developer",
+    role: "Lead Mobile & Frontend Engineer",
     company: "Magenta Insights",
     duration: "May 2025 – Present",
-    description: `At Magenta Insights, I work as a React Native Developer, contributing to the design and development of cross-platform mobile applications for both Android and iOS. 
-                  My focus is on building scalable, user-friendly app features that support the company's business intelligence solutions. 
-                  I collaborate closely with design, backend, and product teams to ensure smooth integration with APIs and deliver high-quality mobile experiences. 
-                  My work involves optimizing performance, maintaining clean code, and continuously enhancing the app's functionality to meet evolving business needs.`,
-    technologies: ["React Native", "TypeScript", "Redux", "REST APIs", "iOS", "Android"]
+    type: "Full-time",
+    bullets: [
+      "Architected the mobile foundation across 5 products (Magenta BI 2.0, CRM, On Field) using Clean Architecture and MVVM — establishing the system-design baseline adopted by the full engineering team.",
+      "Led 5 engineers across two Agile sprint tracks, owning code-review standards and PR templates — reducing production bugs by ~80% within the first quarter.",
+      "Cut deployment cycles from multi-day releases to continuous weekly shipping via Fastlane, OTA pipelines (CodePush / EAS), and branch-based CI/CD.",
+    ],
+    technologies: ["Swift", "React Native", "TypeScript", "Fastlane", "CI/CD", "Clean Architecture"],
+    ghost: "MAGENTA",
   },
-    {
-        role: "Demonstrator",
-        company: "Edinburgh Napier University",
-        duration: "Sept 2024 – March 2025",
-        description: `Supported development in C#, Swift, Java, and Python by guiding peers through debugging, logic structuring, and implementation of efficient code solutions.
-                    Fostered a collaborative coding environment through peer reviews and technical discussions, strengthening team-based software problem-solving skills.
-                    Assisted in optimizing code performance and memory management across multiple languages, focusing on algorithm efficiency and clean architecture principles.`,
-        technologies: ["C#", "Swift", "Java", "Python", "Teaching", "Code Review", "Debugging"]
-    },
-    {
-      role: "iOS Developer",
-      company: "Athulya Tech",
-      duration: "Jan 2023 – Dec 2023",
-      description: `Designed and developed multiple high-performance iOS applications using SwiftUI and UIKit, improving app load times by 50% and performance by 40%. Migrated dependencies to Swift Package Manager, resulting in 25% faster build times and streamlined project maintenance.
-                    Integrated RESTful APIs, Firebase Authentication, and Firestore to enhance data security and reduce login times by 30%. Developed engaging UI/UX with custom animations using Lottie and Core Animation, boosting user retention by 25%.
-                    Collaborated with a cross-functional team of 10+ designers and developers, accelerating project delivery by 25% through agile workflows and shared code optimization strategies.`,
-      technologies: ["Swift", "SwiftUI", "UIKit", "Firebase", "Core Animation", "Lottie", "REST APIs", "SPM"]
-    },
-    
-    // Add more if you like!
-  ];
-  
-  export default experience;
+  {
+    role: "Technical Demonstrator",
+    company: "Edinburgh Napier University",
+    duration: "Sept 2024 – March 2025",
+    type: "Part-time",
+    bullets: [
+      "Ran weekly lab sessions for cohorts of 15–30 students covering software engineering, OOP (C#), and algorithmic problem-solving.",
+      "Hosted open Q&A sessions for the full student body, providing real-time debugging support across multiple concurrent modules.",
+    ],
+    technologies: ["C#", "OOP", "Software Engineering"],
+    ghost: "NAPIER",
+  },
+  {
+    role: "iOS Developer",
+    company: "Athulya Tech",
+    duration: "Jan 2023 – Dec 2023",
+    type: "Full-time",
+    bullets: [
+      "Promoted from intern to full-time iOS developer within the onboarding period on the strength of code quality and delivery pace.",
+      "Resolved latency and reliability failures in legacy auth layers by migrating to Alamofire, and delivered production-ready UI by integrating Lottie animations.",
+    ],
+    technologies: ["Swift", "UIKit", "Alamofire", "Lottie"],
+    ghost: "ATHULYA",
+  },
+];

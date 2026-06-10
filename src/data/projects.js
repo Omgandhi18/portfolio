@@ -1,102 +1,91 @@
-export const professionalProjects = [
+export const professionalWorks = [
   {
-    id: "01",
     name: "Magenta BI 2.0",
-    subtitle: "Business Intelligence Platform",
-    description:
-      "Full-scale B2B business intelligence platform serving 500+ business customers across iOS, Android, and web. Architected the complete mobile foundation using Clean Architecture and MVVM — establishing the system-design baseline adopted by the full engineering team.",
-    tags: ["React Native", "Swift", "SwiftUI", "TypeScript", "Clean Architecture", "Fastlane", "CI/CD"],
     platform: "iOS · Android · Web",
-    company: "Magenta Insights",
-    symbol: "BI",
-    accent: "linear-gradient(135deg, #06B6D4, #3B82F6)",
-    links: {},
+    line: "Full-scale business intelligence platform serving 500+ business customers — architected the complete mobile foundation on Clean Architecture and MVVM.",
   },
   {
-    id: "02",
     name: "Magenta On Field",
-    subtitle: "Sales Force Automation",
-    description:
-      "Field-agent mobile app for customer visit management, order collection, and real-time reporting. Optimised for performance and reliability across low-end Android devices used by field sales teams.",
-    tags: ["React Native", "TypeScript", "Offline-First", "Redux", "iOS", "Android"],
     platform: "iOS · Android",
-    company: "Magenta Insights",
-    symbol: "OF",
-    accent: "linear-gradient(135deg, #10B981, #06B6D4)",
-    links: {},
+    line: "Sales-force automation for field agents — visit management, order collection, and real-time reporting, optimised for low-end Android devices.",
   },
   {
-    id: "03",
     name: "Magenta CRM",
-    subtitle: "Customer Relationship Management",
-    description:
-      "CRM system tightly integrated with Magenta BI, enabling sales teams to manage leads, track interactions, and surface BI intelligence directly in context across mobile and web.",
-    tags: ["React Native", "TypeScript", "REST APIs", "iOS", "Android", "Web"],
     platform: "iOS · Android · Web",
-    company: "Magenta Insights",
-    symbol: "CR",
-    accent: "linear-gradient(135deg, #8B5CF6, #3B82F6)",
-    links: {},
+    line: "CRM tightly integrated with Magenta BI — leads, interactions, and BI intelligence surfaced in context across mobile and web.",
   },
   {
-    id: "04",
     name: "Panchayat",
-    subtitle: "Internal Feature Tracking System",
-    description:
-      "Kanban-based feature lifecycle tool with embedded team collaboration. Each feature opens into a workspace with a threaded chat, versioned Markdown document management, todos, and file sharing — under a per-feature role model: Maintainer, Developer, and Viewer.",
-    tags: ["Next.js 16", "React 19", "MySQL", "Prisma", "NextAuth", "shadcn/ui", "TypeScript"],
     platform: "Web · Internal Tool",
-    company: "Magenta Insights",
-    symbol: "P",
-    accent: "linear-gradient(135deg, #F97316, #FBBF24)",
-    links: {},
+    line: "Kanban-based feature lifecycle tool with threaded chat, versioned Markdown documents, and a per-feature role model.",
   },
 ];
 
-export const personalProjects = [
+export const projects = [
   {
-    id: "01",
     name: "Nova Key",
-    subtitle: "On-Device AI Command Palette",
-    description:
-      "A privacy-first macOS productivity utility (Cmd+Shift+K) powered by Apple Foundation Models. All natural language processing runs fully on-device — zero data egress, near-zero latency.",
-    tags: ["Swift", "SwiftUI", "Apple Foundation Models", "CoreML", "macOS"],
-    platform: "macOS · App Store & GitHub",
-    symbol: "⌘",
-    accent: "linear-gradient(135deg, #FF5F1F, #E040FB)",
+    platform: "macOS",
+    kind: "On-Device AI Command Palette",
+    thesis: "A privacy-first command palette for macOS, powered by Apple Foundation Models.",
+    bullets: [
+      "All natural-language processing runs fully on-device — zero data egress, near-zero latency.",
+      "Offline-first AI scheduling and unified system search built on Clean Architecture, with no server round-trips at all.",
+    ],
     links: {
       appStore: "https://apps.apple.com/us/app/nova-key/id6754893146?mt=12",
       github: "https://github.com/Omgandhi18",
     },
+    caseStudy: {
+      problem:
+        "Command palettes and assistants on the Mac either do too little or phone home too much. Anything with real language understanding shipped the user's words to a server — adding latency to every keystroke and a privacy disclosure to every feature. I wanted Spotlight-grade speed with actual language understanding, and I wanted the network out of the loop entirely.",
+      architecture:
+        "Built on Clean Architecture: the intent layer — Apple Foundation Models running fully on-device — sits behind a boundary, so parsing, the command registry, and execution are independently testable. Natural language resolves to typed intents; a unified search index covers apps, files, and system actions; offline-first scheduling turns phrases into calendar entries without a round trip. Zero data egress, by construction.",
+      outcome:
+        "Shipped on the App Store. Response feels instantaneous because nothing leaves the machine — there is no server to wait for, no inference bill to pay, and no privacy-policy asterisk. ⌘⇧K, and the palette answers.",
+    },
   },
   {
-    id: "02",
     name: "Oink!",
-    subtitle: "Personal Finance Tracker",
-    description:
-      "Secure on-device data persistence via SwiftData and real-time spending visualisation using Swift Charts and SwiftUI. 100% local, zero backend infrastructure.",
-    tags: ["Swift", "SwiftUI", "SwiftData", "Swift Charts", "iOS"],
-    platform: "iOS · App Store & GitHub",
-    symbol: "$",
-    accent: "linear-gradient(135deg, #F59E0B, #EF4444)",
+    platform: "iOS",
+    kind: "Personal Finance Tracker",
+    thesis: "A finance tracker that never lets your money data leave your hand.",
+    bullets: [
+      "Secure on-device persistence via SwiftData — 100% local, zero backend infrastructure.",
+      "Real-time spending visualisation with Swift Charts and SwiftUI.",
+    ],
     links: {
       appStore: "https://apps.apple.com/us/app/oink/id6705128036",
       github: "https://github.com/Omgandhi18",
     },
+    caseStudy: {
+      problem:
+        "Personal finance apps ask for your bank credentials, your email address, and your trust — then keep your spending history on their servers. The data is among the most sensitive a person has, and none of it needs to leave the phone for the app to be useful.",
+      architecture:
+        "SwiftData owns persistence: every transaction lives in the device's own store, modelled for fast aggregate queries. SwiftUI and Swift Charts render spending in real time straight from local data — no cache invalidation, no sync state machine, no backend at all. MVVM keeps the views thin and the logic testable.",
+      outcome:
+        "On the App Store with zero infrastructure cost and a one-line privacy story: your money data never leaves your hand. The architecture is the feature.",
+    },
   },
   {
-    id: "03",
     name: "Translo",
-    subtitle: "On-Device ML Translator",
-    description:
-      "Zero-latency, fully offline text translation using Google MLKit. Real-time translation with no server dependency and no inference cost — runs entirely on-device.",
-    tags: ["Swift", "SwiftUI", "Google MLKit", "CoreML", "iOS", "macOS"],
-    platform: "iOS/macOS · GitHub",
-    symbol: "Aa",
-    accent: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
+    platform: "iOS · macOS",
+    kind: "On-Device ML Translator",
+    thesis: "Fully offline translation — real-time, no server, no inference cost.",
+    bullets: [
+      "Zero-latency text translation built on Google MLKit, running entirely on-device.",
+      "Shipped across iPhone and Mac with a shared SwiftUI core.",
+    ],
     links: {
       appStore: "https://apps.apple.com/us/app/translo/id6659895212",
       github: "https://github.com/Omgandhi18",
+    },
+    caseStudy: {
+      problem:
+        "Translation is a network feature in most apps — every phrase becomes an API call, which means latency on every interaction, a cost on every request, and an app that is useless on a plane or behind a firewall.",
+      architecture:
+        "Google MLKit's translation models run entirely on-device, wrapped behind a thin translation boundary so the engine could be swapped without touching the UI. A shared SwiftUI core ships the same experience to iPhone and Mac; language packs download once and live locally.",
+      outcome:
+        "Real-time translation with zero latency, zero inference cost, and full offline operation — typed text becomes another language as fast as it can be rendered.",
     },
   },
 ];

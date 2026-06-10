@@ -1,0 +1,40 @@
+export const profile = {
+  name: "Om Gandhi",
+  mark: "Ω",
+  epithet: "Senior Mobile Engineer",
+  platforms: "iOS · Android · React Native",
+  location: "Ahmedabad, India",
+  email: "omkgandhi@outlook.com",
+  resume: "/Om_Gandhi_Resume.pdf",
+  hero: "Three years of production iOS, macOS, and React Native — shipped to 500+ businesses, built to last.",
+  links: {
+    github: "https://github.com/Omgandhi18",
+    linkedin: "https://www.linkedin.com/in/gandhiom/",
+  },
+  stats: [
+    { value: "500+", label: "Businesses served" },
+    { value: "5", label: "Products owned" },
+    { value: "~80%", label: "Fewer production bugs" },
+    { value: "3", label: "Apps shipped" },
+  ],
+  oracles: [
+    { greek: "ΜΗΔΕΝ ΑΓΑΝ", english: "Nothing in excess." },
+    { greek: "ΓΝΩΘΙ ΣΕΑΥΤΟΝ", english: "Know thy codebase." },
+    { greek: "ΕΥ ΑΡΧΕΣΘΑΙ", english: "Well begun is half done." },
+    { greek: "ΔΙΣ ΜΕΤΡΕΙ", english: "Measure twice, carve once." },
+    { greek: "ΤΟ ΟΛΟΝ ΜΕΙΖΟΝ", english: "The whole is greater than the sum of its parts." },
+    { greek: "ΣΠΕΥΔΕ ΒΡΑΔΕΩΣ", english: "Make haste, slowly." },
+  ],
+  epigraph: [
+    "I lead mobile and frontend engineering at Magenta Insights, where our five-product B2B suite serves five hundred–odd businesses across iOS, Android, and the web.",
+    "I care about structure more than ceremony. Clean Architecture, MVVM, and modular design are how my team cut production bugs by around eighty percent in a quarter — and Fastlane, OTA updates, and branch-based CI/CD turned multi-day releases into a weekly rhythm.",
+    "Before all this, my MSc research looked at UPI adoption and digital payments — it still shapes how I think about the systems these products live inside.",
+  ],
+  skills: [
+    { label: "Apple Platforms", items: ["Swift", "SwiftUI", "UIKit", "CoreML", "Apple Foundation Models", "SwiftData", "XCTest"] },
+    { label: "Cross-Platform", items: ["React Native", "TypeScript", "Kotlin", "Jetpack Compose", "React"] },
+    { label: "Architecture", items: ["Clean Architecture", "MVVM", "TCA", "Modular Design", "System Design", "Offline-First"] },
+    { label: "DevOps & Release", items: ["Fastlane", "CodePush", "EAS (OTA)", "CI/CD", "Github Actions", "Agile / Scrum"] },
+    { label: "AI & ML", items: ["On-Device ML", "CoreML", "MLKit", "Apple Foundation Models", "Performance Optimisation"] },
+  ],
+};

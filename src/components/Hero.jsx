@@ -1,151 +1,149 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import AsciiTorus from "./AsciiTorus";
+import { profile } from "../data/profile";
+import { isDark } from "../theme";
+import GreekDecrypt from "./GreekDecrypt";
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-};
+const EASE = [0.22, 1, 0.36, 1];
 
-const item = {
-  hidden: { opacity: 0, y: 32 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
-
-// Only one torus instance is ever mounted at a time — no wasted RAF loops
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(
-    () => typeof window !== "undefined"
-      ? window.matchMedia("(min-width: 1024px)").matches
-      : true
-  );
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const fn = (e) => setIsDesktop(e.matches);
-    mq.addEventListener("change", fn);
-    return () => mq.removeEventListener("change", fn);
-  }, []);
-  return isDesktop;
-}
+const rise = (delay) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 1, delay, ease: EASE },
+});
 
 export default function Hero() {
-  const isDesktop = useIsDesktop();
+  // The oracle speaks once per visit
+  const [oracle] = useState(
+    () => profile.oracles[Math.floor(Math.random() * profile.oracles.length)]
+  );
+
+  // Zeus stirs — at most once per visit, only over Othrys
+  const [bolt, setBolt] = useState(false);
+  useEffect(() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const delay = 7000 + Math.random() * 11000;
+    const arm = setTimeout(() => {
+      if (isDark()) {
+        setBolt(true);
+        setTimeout(() => setBolt(false), 1400);
+      }
+    }, delay);
+    return () => clearTimeout(arm);
+  }, []);
+
+  const meta = [
+    { label: "Github", href: profile.links.github },
+    { label: "Linkedin", href: profile.links.linkedin },
+    { label: "Email", href: `mailto:${profile.email}` },
+    { label: "Vita ↓", href: profile.resume, download: true },
+  ];
 
   return (
-    <section className="relative min-h-[88vh] md:min-h-screen flex items-center section-padding pt-20 pb-12 overflow-hidden">
-
-      {/* Ambient glow */}
+    <section id="top" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+      {/* Light from above — dawn on Olympus, dusk over Othrys */}
       <div
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse, rgba(255,95,31,0.09) 0%, rgba(224,64,251,0.07) 45%, transparent 70%)",
-          filter: "blur(50px)",
-        }}
+        aria-hidden="true"
+        className="summit-light pointer-events-none absolute inset-x-0 top-0 h-[60vh]"
       />
 
-      {/* ── Mobile: torus as a low-alpha background ── */}
-      {!isDesktop && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.6, delay: 0.6 }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
-          style={{ opacity: 0.13 }}
-        >
-          <AsciiTorus cols={46} rows={26} />
-        </motion.div>
+      {/* Zeus, briefly */}
+      {bolt && (
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden dark:block">
+          <div className="sky-flash summit-light absolute inset-x-0 top-0 h-[60vh]" />
+          <svg
+            viewBox="0 0 60 200"
+            className="bolt absolute right-[22%] top-0 h-[34vh] w-auto text-gold"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          >
+            <path d="M34 0 L22 78 L33 74 L18 160" />
+            <path d="M27 52 L17 80" />
+          </svg>
+        </div>
       )}
 
-      <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">
+      <motion.span
+        {...rise(0.1)}
+        className="font-display text-4xl text-bronze sm:text-5xl"
+        aria-hidden="true"
+      >
+        {profile.mark}
+      </motion.span>
 
-        {/* ── Text content ── */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="lg:col-span-3"
-        >
-          <motion.p
-            variants={item}
-            className="text-xs font-satoshi tracking-widest uppercase text-text-muted mb-6"
-          >
-            Available for new opportunities
-          </motion.p>
+      <motion.h1
+        initial={{ opacity: 0, letterSpacing: "0.4em" }}
+        animate={{ opacity: 1, letterSpacing: "0.18em" }}
+        transition={{ duration: 1.6, delay: 0.25, ease: EASE }}
+        className="relative mt-8 font-display text-[clamp(2.4rem,8.5vw,6.5rem)] uppercase leading-none text-ink"
+      >
+        Om&nbsp;Gandhi
+        <span aria-hidden="true" className="hero-sheen absolute inset-0">
+          Om&nbsp;Gandhi
+        </span>
+      </motion.h1>
 
-          <motion.h1
-            variants={item}
-            className="font-clash font-bold leading-[0.9] tracking-tight mb-6"
-            style={{ fontSize: "clamp(3.5rem, 10vw, 8rem)" }}
-          >
-            Om
-            <br />
-            <span className="text-gradient-animated">Gandhi</span>
-          </motion.h1>
+      <motion.div {...rise(0.55)} className="mt-8 flex items-center gap-4">
+        <span className="h-px w-10 bg-bronze/60 sm:w-16" aria-hidden="true" />
+        <p className="meta-caps text-faded sm:text-sm">
+          {profile.epithet} — {profile.platforms}
+        </p>
+        <span className="h-px w-10 bg-bronze/60 sm:w-16" aria-hidden="true" />
+      </motion.div>
 
-          <motion.p
-            variants={item}
-            className="font-satoshi text-lg md:text-xl text-text-muted max-w-lg mb-4"
-          >
-            Senior Mobile Engineer · iOS · Android · React Native
-          </motion.p>
+      <motion.p
+        {...rise(0.75)}
+        className="mt-10 max-w-xl font-body text-lg italic leading-relaxed text-faded sm:text-xl"
+      >
+        {profile.hero}
+      </motion.p>
 
-          <motion.p
-            variants={item}
-            className="font-satoshi text-sm text-text-muted max-w-md mb-10 leading-relaxed"
-          >
-            Mobile-first technical leader with 3+ years shipping production iOS,
-            macOS, and React Native apps. I architect scalable systems, lead teams,
-            and obsess over on-device performance.
-          </motion.p>
+      <motion.div {...rise(0.95)} className="mt-12">
+        <p className="meta-caps text-faded">{profile.location}</p>
+        <ul className="mt-4 flex items-center justify-center gap-3 sm:gap-4">
+          {meta.map(({ label, href, download }, i) => (
+            <li key={label} className="flex items-center gap-3 sm:gap-4">
+              {i > 0 && <span className="text-bronze/70" aria-hidden="true">·</span>}
+              <a
+                href={href}
+                download={download}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer"
+                className="meta-caps link-carve text-ink transition-colors hover:text-bronze"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
 
-          <motion.div variants={item} className="flex flex-wrap gap-4">
-            <a
-              href="#projects"
-              className="font-satoshi font-medium px-6 py-3 rounded-full text-sm text-white transition-opacity duration-200 hover:opacity-85"
-              style={{ background: "linear-gradient(135deg, #FF5F1F, #E040FB)" }}
-            >
-              View Work
-            </a>
-            <a
-              href="#contact"
-              className="font-satoshi font-medium px-6 py-3 rounded-full text-sm border border-white/15 text-white hover:border-white/30 hover:bg-white/5 transition-all duration-200"
-            >
-              Get in Touch
-            </a>
-          </motion.div>
-        </motion.div>
+      <motion.p {...rise(1.2)} className="mt-14">
+        <GreekDecrypt
+          greek={oracle.greek}
+          english={oracle.english}
+          delay={2800}
+          duration={1400}
+          className="meta-caps text-bronze"
+        />
+      </motion.p>
 
-        {/* ── Desktop: torus in right column ── */}
-        {isDesktop && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.4, delay: 0.5 }}
-            className="lg:col-span-2 flex justify-center items-center relative"
-          >
-            <div className="absolute top-0 right-0 text-[10px] font-satoshi tracking-widest uppercase text-text-muted opacity-35 select-none pointer-events-none">
-              SWIFT · RN · TS
-            </div>
-            <AsciiTorus cols={60} rows={30} />
-          </motion.div>
-        )}
-
-      </div>
-
-      {/* Scroll indicator */}
-      <motion.div
+      <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        transition={{ duration: 1, delay: 1.6 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        aria-hidden="true"
       >
-        <span className="text-[10px] text-text-muted font-satoshi tracking-widest uppercase">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-px h-8 bg-gradient-to-b from-accent-orange to-transparent"
+        <motion.span
+          className="block h-12 w-px bg-ink/30"
+          animate={{ scaleY: [1, 0.4, 1] }}
+          style={{ transformOrigin: "top" }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
         />
-      </motion.div>
+      </motion.span>
     </section>
   );
 }

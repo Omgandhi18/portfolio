@@ -4,36 +4,27 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
-      fontFamily: {
-        clash: ["'Clash Display'", "sans-serif"],
-        satoshi: ["Satoshi", "sans-serif"],
-      },
       colors: {
-        bg: "#0F0F14",
-        surface: "#16161E",
-        "surface-2": "#1E1E2A",
-        "accent-orange": "#FF5F1F",
-        "accent-magenta": "#E040FB",
-        "text-muted": "#8888A0",
+        marble: "rgb(var(--c-marble) / <alpha-value>)",
+        panel: "rgb(var(--c-panel) / <alpha-value>)",
+        ink: "rgb(var(--c-ink) / <alpha-value>)",
+        faded: "rgb(var(--c-faded) / <alpha-value>)",
+        bronze: "rgb(var(--c-bronze) / <alpha-value>)",
+        gold: "rgb(var(--c-gold) / <alpha-value>)",
       },
-      animation: {
-        "gradient-shift": "gradientShift 6s ease infinite",
-        "fade-up": "fadeUp 0.6s ease forwards",
-        float: "float 6s ease-in-out infinite",
+      borderColor: {
+        hairline: "rgb(var(--c-ink) / 0.16)",
       },
-      keyframes: {
-        gradientShift: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-        fadeUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
+      fontFamily: {
+        display: ["Marcellus", "Georgia", "serif"],
+        body: ["'EB Garamond Variable'", "Georgia", "serif"],
+      },
+      letterSpacing: {
+        inscription: "0.22em",
+        epigraph: "0.16em",
+      },
+      maxWidth: {
+        site: "66rem",
       },
     },
   },

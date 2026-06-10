@@ -1,55 +1,35 @@
-import { useEffect } from "react";
-import Lenis from "lenis";
-import Navbar from "./components/Navbar";
+import { MotionConfig } from "framer-motion";
+import Backdrop from "./components/Backdrop";
+import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import Stats from "./components/Stats";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import Experience from "./components/Experience";
+import Ethos from "./components/Ethos";
+import Arithmoi from "./components/Arithmoi";
+import Works from "./components/Works";
+import Odyssey from "./components/Odyssey";
 import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import Cursor from "./components/Cursor";
-import Loader from "./components/Loader";
+import CommandPalette from "./components/CommandPalette";
+import Invocation from "./components/Invocation";
+import RealmGates from "./components/RealmGates";
 
-function App() {
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-
-    let rafId;
-    function raf(time) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
-  }, []);
-
+export default function App() {
   return (
-    <>
-      <Loader />
-      <Cursor />
-      <div className="bg-bg text-white">
-        <Navbar />
-        <main>
-          <Hero />
-          <Stats />
-          <About />
-          <Projects />
-          <Experience />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    </>
+    <MotionConfig reducedMotion="user">
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
+      <Backdrop />
+      <Nav />
+      <main id="main">
+        <Hero />
+        <Ethos />
+        <Arithmoi />
+        <Works />
+        <Odyssey />
+        <Contact />
+      </main>
+      <CommandPalette />
+      <Invocation />
+      <RealmGates />
+    </MotionConfig>
   );
 }
-
-export default App;

@@ -1,10 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF5F1F"/>
-      <stop offset="100%" stop-color="#E040FB"/>
-    </linearGradient>
-  </defs>
-  <rect width="32" height="32" rx="7" fill="#0F0F14"/>
-  <text x="16" y="23" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="18" fill="url(#g)" text-anchor="middle">og</text>
+  <style>
+    rect { fill: #F2EEE3; }
+    path { stroke: #785F35; }
+    @media (prefers-color-scheme: dark) {
+      rect { fill: #141210; }
+      path { stroke: #C2A468; }
+    }
+  </style>
+  <rect width="32" height="32"/>
+  <path d="M8.5 24.5 H13.8 L12.9 22.4 A7.4 7.4 0 1 1 19.1 22.4 L18.2 24.5 H23.5"
+        fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

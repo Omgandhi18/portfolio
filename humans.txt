@@ -1,0 +1,20 @@
+/* TEAM */
+  Architect: Om Gandhi
+  Site: omgandhi.dev
+  Location: Ahmedabad, India
+  Contact: omkgandhi@outlook.com
+  Github: @Omgandhi18
+
+/* COLOPHON */
+  Set in Marcellus & EB Garamond.
+  Light is Olympus, marble and bronze.
+  Dark is Othrys, basalt and gold.
+  Built with Vite, React, Tailwind, and framer-motion.
+  No trackers beyond a single humble GoatCounter.
+
+/* RITES */
+  Press cmd-K and speak a command.
+  Type the name of a realm, and its gates will open.
+  Wait long enough under Othrys, and Zeus may stir.
+
+  ΜΗΔΕΝ ΑΓΑΝ — nothing in excess.

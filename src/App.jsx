@@ -5,7 +5,7 @@ import Hero from "./components/Hero";
 import Ethos from "./components/Ethos";
 import Arithmoi from "./components/Arithmoi";
 import Works from "./components/Works";
-import Odyssey from "./components/Odyssey";
+import Poreia from "./components/Poreia";
 import Contact from "./components/Contact";
 import CommandPalette from "./components/CommandPalette";
 import Invocation from "./components/Invocation";
@@ -24,7 +24,7 @@ export default function App() {
         <Ethos />
         <Arithmoi />
         <Works />
-        <Odyssey />
+        <Poreia />
         <Contact />
       </main>
       <CommandPalette />

@@ -3,10 +3,10 @@ import { Fleuron, Trireme } from "./Ornaments";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
-export default function Odyssey() {
+export default function Poreia() {
   return (
-    <section id="odyssey" className="mx-auto max-w-site px-6 py-28 sm:px-10 sm:py-36">
-      <SectionHeading numeral="Γ´" title="Odyssey" gloss="Experience" />
+    <section id="poreia" className="mx-auto max-w-site px-6 py-28 sm:px-10 sm:py-36">
+      <SectionHeading numeral="Π" title="Poreia" gloss="Experience" />
 
       <ol className="space-y-0">
         {experiences.map((exp, i) => (

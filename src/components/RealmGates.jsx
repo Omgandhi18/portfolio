@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { setDark } from "../theme";
+import { isDark, setDark } from "../theme";
 import GreekDecrypt from "./GreekDecrypt";
 
 /* The doors of the destination realm close over the screen, the world
@@ -43,6 +43,13 @@ const GRIT =
 const CLOSE = { duration: 0.55, ease: [0.65, 0, 0.35, 1] };
 const OPEN = { duration: 0.85, ease: [0.22, 1, 0.36, 1] };
 const HOLD_MS = 1000;
+const ARRIVE_HOLD_MS = 1150;
+
+/* Every load begins at the realm's gates, already shut —
+   they open to let you in. */
+function shouldArrive() {
+  return !matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
 
 function Coffer({ realm, className = "" }) {
   return (
@@ -60,13 +67,13 @@ function Coffer({ realm, className = "" }) {
   );
 }
 
-function DoorPanel({ side, realm, closing, onDone }) {
+function DoorPanel({ side, realm, covered, arriving, onDone }) {
   const left = side === "left";
   return (
     <motion.div
-      initial={{ x: left ? "-101%" : "101%" }}
-      animate={{ x: closing ? "0%" : left ? "-101%" : "101%" }}
-      transition={closing ? CLOSE : OPEN}
+      initial={{ x: arriving ? "0%" : left ? "-101%" : "101%" }}
+      animate={{ x: covered ? "0%" : left ? "-101%" : "101%" }}
+      transition={covered ? CLOSE : OPEN}
       onAnimationComplete={left ? onDone : undefined}
       className={`absolute inset-y-0 w-[50.5%] ${left ? "left-0" : "right-0"}`}
       style={{ background: realm.bg }}
@@ -121,8 +128,22 @@ function DoorPanel({ side, realm, closing, onDone }) {
 }
 
 export default function RealmGates() {
-  const [travel, setTravel] = useState(null); // { dark, stage: "closing" | "opening" }
-  const busy = useRef(false);
+  // { dark, stage: "arriving" | "closing" | "opening" }
+  const [travel, setTravel] = useState(() =>
+    shouldArrive() ? { dark: isDark(), stage: "arriving" } : null
+  );
+  const busy = useRef(travel !== null);
+
+  useEffect(() => {
+    if (travel?.stage === "arriving") {
+      const open = setTimeout(
+        () => setTravel((t) => t && { ...t, stage: "opening" }),
+        ARRIVE_HOLD_MS
+      );
+      return () => clearTimeout(open);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- arrival runs once, from mount state
+  }, []);
 
   useEffect(() => {
     const onTravel = (e) => {
@@ -137,32 +158,39 @@ export default function RealmGates() {
   if (!travel) return null;
 
   const realm = REALMS[travel.dark ? "dark" : "light"];
-  const closing = travel.stage === "closing";
+  const { stage } = travel;
+  const covered = stage !== "opening";
+  const arriving = stage === "arriving";
 
   const onLeftPanelDone = () => {
-    if (closing) {
+    if (stage === "closing") {
       // Doors are shut — the world changes behind them.
       setDark(travel.dark);
       setTimeout(
         () => setTravel((t) => t && { ...t, stage: "opening" }),
         HOLD_MS
       );
-    } else {
+    } else if (stage === "opening") {
       busy.current = false;
       setTravel(null);
     }
+    // "arriving" ends via its own timer, not the door animation
   };
 
   return (
     <div className="fixed inset-0 z-[95] overflow-hidden" aria-hidden="true">
-      <DoorPanel side="left" realm={realm} closing={closing} onDone={onLeftPanelDone} />
-      <DoorPanel side="right" realm={realm} closing={closing} />
+      <DoorPanel side="left" realm={realm} covered={covered} arriving={arriving} onDone={onLeftPanelDone} />
+      <DoorPanel side="right" realm={realm} covered={covered} arriving={arriving} />
       {/* the realm announces itself at the seam */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: closing ? 1 : 0 }}
+        animate={{ opacity: covered ? 1 : 0 }}
         transition={
-          closing ? { duration: 0.45, delay: 0.4 } : { duration: 0.18 }
+          stage === "closing"
+            ? { duration: 0.45, delay: 0.4 }
+            : arriving
+              ? { duration: 0.6, delay: 0.15 }
+              : { duration: 0.18 }
         }
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
       >
@@ -179,7 +207,7 @@ export default function RealmGates() {
               greek={realm.name}
               english={realm.latin}
               trigger="mount"
-              delay={950}
+              delay={arriving ? 450 : 950}
               duration={550}
             />
           </p>

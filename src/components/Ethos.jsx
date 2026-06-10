@@ -6,7 +6,7 @@ import SectionHeading from "./SectionHeading";
 export default function Ethos() {
   return (
     <section id="ethos" className="mx-auto max-w-site px-6 py-28 sm:px-10 sm:py-36">
-      <SectionHeading numeral="Α´" title="Ethos" gloss="About" />
+      <SectionHeading numeral="Η" title="Ethos" gloss="About" />
 
       <div className="grid gap-16 lg:grid-cols-[3fr,2fr] lg:gap-20">
         <Reveal>

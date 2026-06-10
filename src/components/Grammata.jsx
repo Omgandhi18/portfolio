@@ -9,7 +9,7 @@ export default function Grammata() {
 
   return (
     <section id="grammata" className="mx-auto max-w-site px-6 py-28 sm:px-10 sm:py-36">
-      <SectionHeading numeral="Δ´" title="Grammata" gloss="Writing" />
+      <SectionHeading numeral="Γ" title="Grammata" gloss="Writing" />
 
       <div>
         {essays.map((essay, i) => {

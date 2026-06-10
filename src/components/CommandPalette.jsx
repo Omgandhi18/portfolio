@@ -15,8 +15,8 @@ function buildCommands(close) {
   return [
     { label: "Go to Ethos", hint: "About", keywords: "about ethos summary skills", run: go("ethos") },
     { label: "Go to Erga", hint: "Work", keywords: "work projects apps erga nova oink translo", run: go("erga") },
-    { label: "Go to Odyssey", hint: "Journey", keywords: "experience journey odyssey magenta napier", run: go("odyssey") },
-    { label: "Go to Logos", hint: "Contact", keywords: "contact logos email reach", run: go("logos") },
+    { label: "Go to Poreia", hint: "Journey", keywords: "experience journey poreia odyssey magenta napier", run: go("poreia") },
+    { label: "Go to Epaphe", hint: "Contact", keywords: "contact epaphe logos email reach", run: go("epaphe") },
     {
       label: isDark() ? "Travel to Olympus" : "Travel to Othrys",
       hint: isDark() ? "Light mode" : "Dark mode",

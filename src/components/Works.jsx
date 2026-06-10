@@ -18,7 +18,7 @@ export default function Works() {
 
   return (
     <section id="erga" className="mx-auto max-w-site px-6 py-28 sm:px-10 sm:py-36">
-      <SectionHeading numeral="Β´" title="Erga" gloss="Selected Works" />
+      <SectionHeading numeral="Ε" title="Erga" gloss="Selected Works" />
 
       <div className="grid border border-hairline divide-y divide-hairline md:grid-cols-3 md:divide-x md:divide-y-0">
         {projects.map((project, i) => (

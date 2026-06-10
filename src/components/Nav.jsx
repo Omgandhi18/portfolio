@@ -6,8 +6,8 @@ import ThemeToggle from "./ThemeToggle";
 const LINKS = [
   { href: "#ethos", id: "ethos", label: "About" },
   { href: "#erga", id: "erga", label: "Work" },
-  { href: "#odyssey", id: "odyssey", label: "Journey" },
-  { href: "#logos", id: "logos", label: "Contact" },
+  { href: "#poreia", id: "poreia", label: "Journey" },
+  { href: "#epaphe", id: "epaphe", label: "Contact" },
 ];
 
 const SECTION_IDS = LINKS.map((l) => l.id);

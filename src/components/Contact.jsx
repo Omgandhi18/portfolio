@@ -8,8 +8,8 @@ export default function Contact() {
   const year = new Date().getFullYear();
 
   return (
-    <section id="logos" className="mx-auto max-w-site px-6 pt-28 sm:px-10 sm:pt-36">
-      <SectionHeading numeral="Δ´" title="Logos" gloss="Contact" />
+    <section id="epaphe" className="mx-auto max-w-site px-6 pt-28 sm:px-10 sm:pt-36">
+      <SectionHeading numeral="Ε" title="Epaphe" gloss="Contact" />
 
       <Reveal className="pb-24 text-center sm:pb-32">
         <Wings className="mx-auto w-44 sm:w-56" />

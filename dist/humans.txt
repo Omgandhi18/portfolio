@@ -2,7 +2,7 @@
   Architect: Om Gandhi
   Site: omgandhi.dev
   Location: Ahmedabad, India
-  Contact: omkgandhi@outlook.com
+  Contact: omgandhi255@gmail.com
   Github: @Omgandhi18
 
 /* COLOPHON */

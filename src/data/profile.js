@@ -4,7 +4,7 @@ export const profile = {
   epithet: "Senior Mobile Engineer",
   platforms: "iOS · Android · React Native",
   location: "Ahmedabad, India",
-  email: "omkgandhi@outlook.com",
+  email: "omgandhi255@gmail.com",
   resume: "/Om_Gandhi_Resume.pdf",
   hero: "Three years of production iOS, macOS, and React Native — shipped to 500+ businesses, built to last.",
   links: {

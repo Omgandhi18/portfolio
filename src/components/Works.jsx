@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { professionalWorks, projects } from "../data/projects";
 import GreekDecrypt from "./GreekDecrypt";
@@ -16,122 +16,154 @@ export default function Works() {
   const [openStudy, setOpenStudy] = useState(null);
   const open = projects.find((p) => p.name === openStudy);
 
+  // Track the real column count so we can chunk the cards into rows and drop the
+  // case-study panel directly beneath the row that holds the opened card —
+  // rather than at the very bottom of the grid. Cards stack (1 col) below md.
+  const [cols, setCols] = useState(3);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const sync = () => setCols(mq.matches ? 3 : 1);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const rows = [];
+  for (let i = 0; i < projects.length; i += cols) {
+    rows.push(projects.slice(i, i + cols));
+  }
+
   return (
     <section id="erga" className="mx-auto max-w-site px-6 py-28 sm:px-10 sm:py-36">
       <SectionHeading numeral="Ε" title="Erga" gloss="Selected Works" />
 
-      <div className="grid border border-hairline divide-y divide-hairline md:grid-cols-3 md:divide-x md:divide-y-0">
-        {projects.map((project, i) => (
-          <Reveal
-            key={project.name}
-            delay={i * 0.12}
-            className="group flex flex-col gap-5 p-8 transition-colors duration-500 hover:bg-panel sm:p-10"
-          >
-            <p className="meta-caps text-bronze">{project.platform}</p>
-            <div>
-              <h3 className="font-display text-2xl text-ink">{project.name}</h3>
-              <p className="mt-1 font-body text-sm uppercase tracking-epigraph text-faded">
-                {project.kind}
-              </p>
-            </div>
-            <p className="font-body text-lg italic leading-relaxed text-ink">
-              {project.thesis}
-            </p>
-            <ul className="space-y-3 font-body text-base leading-relaxed text-faded">
-              {project.bullets.map((bullet) => (
-                <li key={bullet} className="flex gap-3">
-                  <span className="mt-[0.7em] h-px w-4 shrink-0 bg-bronze/70" aria-hidden="true" />
-                  <span>{bullet}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 pt-4">
-              {project.links.appStore && (
-                <a
-                  href={project.links.appStore}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="meta-caps link-carve text-ink transition-colors hover:text-bronze"
+      {rows.map((row, rIdx) => {
+        const rowHasOpen = open && row.some((p) => p.name === open.name);
+        return (
+          <Fragment key={rIdx}>
+            <div
+              className={`grid border border-hairline divide-y divide-hairline md:grid-cols-3 md:divide-x md:divide-y-0 ${
+                rIdx > 0 ? "border-t-0" : ""
+              }`}
+            >
+              {row.map((project, j) => (
+                <Reveal
+                  key={project.name}
+                  delay={j * 0.12}
+                  className={`group flex flex-col gap-5 p-8 transition-colors duration-500 hover:bg-panel sm:p-10 ${
+                    j === row.length - 1 && row.length < 3
+                      ? "md:border-r md:border-hairline"
+                      : ""
+                  }`}
                 >
-                  App Store ↗
-                </a>
-              )}
-              {project.links.github && (
-                <a
-                  href={project.links.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="meta-caps link-carve text-ink transition-colors hover:text-bronze"
-                >
-                  Github ↗
-                </a>
-              )}
-              {project.caseStudy && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    setOpenStudy(openStudy === project.name ? null : project.name)
-                  }
-                  aria-expanded={openStudy === project.name}
-                  aria-controls="case-study-panel"
-                  className="meta-caps text-bronze transition-colors hover:text-ink"
-                >
-                  {openStudy === project.name ? "Seal the stele ▴" : "Full account ▾"}
-                </button>
-              )}
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      {/* Expanded case study — a stele unsealed */}
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            id="case-study-panel"
-            key={open.name}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="border border-t-0 border-hairline bg-panel/40 p-8 sm:p-12">
-              <div className="flex items-baseline justify-between gap-4">
-                <h4 className="font-display text-xl text-ink sm:text-2xl">
-                  {open.name} — the full account
-                </h4>
-                <button
-                  type="button"
-                  onClick={() => setOpenStudy(null)}
-                  className="meta-caps shrink-0 text-faded transition-colors hover:text-bronze"
-                >
-                  Close
-                </button>
-              </div>
-              <div className="mt-8 grid gap-10 md:grid-cols-3">
-                {STUDY_PARTS.map(({ key, greek, gloss }, i) => (
-                  <div key={key}>
-                    <p>
-                      <GreekDecrypt
-                        greek={greek}
-                        english={gloss}
-                        trigger="mount"
-                        delay={900 + i * 350}
-                        duration={900}
-                        className="meta-caps text-bronze"
-                      />
-                    </p>
-                    <p className="mt-4 font-body text-base leading-relaxed text-faded">
-                      {open.caseStudy[key]}
+                  <p className="meta-caps text-bronze">{project.platform}</p>
+                  <div>
+                    <h3 className="font-display text-2xl text-ink">{project.name}</h3>
+                    <p className="mt-1 font-body text-sm uppercase tracking-epigraph text-faded">
+                      {project.kind}
                     </p>
                   </div>
-                ))}
-              </div>
+                  <p className="font-body text-lg italic leading-relaxed text-ink">
+                    {project.thesis}
+                  </p>
+                  <ul className="space-y-3 font-body text-base leading-relaxed text-faded">
+                    {project.bullets.map((bullet) => (
+                      <li key={bullet} className="flex gap-3">
+                        <span className="mt-[0.7em] h-px w-4 shrink-0 bg-bronze/70" aria-hidden="true" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 pt-4">
+                    {project.links.appStore && (
+                      <a
+                        href={project.links.appStore}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="meta-caps link-carve text-ink transition-colors hover:text-bronze"
+                      >
+                        App Store ↗
+                      </a>
+                    )}
+                    {project.links.github && (
+                      <a
+                        href={project.links.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="meta-caps link-carve text-ink transition-colors hover:text-bronze"
+                      >
+                        Github ↗
+                      </a>
+                    )}
+                    {project.caseStudy && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOpenStudy(openStudy === project.name ? null : project.name)
+                        }
+                        aria-expanded={openStudy === project.name}
+                        aria-controls="case-study-panel"
+                        className="meta-caps text-bronze transition-colors hover:text-ink"
+                      >
+                        {openStudy === project.name ? "Seal the stele ▴" : "Full account ▾"}
+                      </button>
+                    )}
+                  </div>
+                </Reveal>
+              ))}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+            {/* Expanded case study — a stele unsealed, beneath its own row */}
+            <AnimatePresence initial={false}>
+              {rowHasOpen && (
+                <motion.div
+                  id="case-study-panel"
+                  key={open.name}
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="border border-t-0 border-hairline bg-panel/40 p-8 sm:p-12">
+                    <div className="flex items-baseline justify-between gap-4">
+                      <h4 className="font-display text-xl text-ink sm:text-2xl">
+                        {open.name} — the full account
+                      </h4>
+                      <button
+                        type="button"
+                        onClick={() => setOpenStudy(null)}
+                        className="meta-caps shrink-0 text-faded transition-colors hover:text-bronze"
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <div className="mt-8 grid gap-10 md:grid-cols-3">
+                      {STUDY_PARTS.map(({ key, greek, gloss }, i) => (
+                        <div key={key}>
+                          <p>
+                            <GreekDecrypt
+                              greek={greek}
+                              english={gloss}
+                              trigger="mount"
+                              delay={900 + i * 350}
+                              duration={900}
+                              className="meta-caps text-bronze"
+                            />
+                          </p>
+                          <p className="mt-4 font-body text-base leading-relaxed text-faded">
+                            {open.caseStudy[key]}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Fragment>
+        );
+      })}
 
       {/* In Service — professional suite, a ledger not a gallery */}
       <Reveal className="mt-20 sm:mt-24">

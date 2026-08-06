@@ -23,6 +23,28 @@ export const professionalWorks = [
 
 export const projects = [
   {
+    name: "Silo",
+    platform: "iOS",
+    kind: "On-Device Wishlist Manager",
+    thesis: "A wishlist stash that saves everything you want to buy — and keeps it entirely on your phone.",
+    bullets: [
+      "Save any product link from a shopping app or Safari; the app auto-fetches image, title, and price on-device.",
+      "Color-coded collections, no accounts, no servers, no tracking — 100% local, zero data collection.",
+    ],
+    links: {
+      appStore: "https://apps.apple.com/us/app/silo-your-wishlist-stash/id6784780927",
+      github: "https://github.com/Omgandhi18",
+    },
+    caseStudy: {
+      problem:
+        "Every wishlist and save-for-later app wants an account, then parks the list of things you want on their servers — a running record of your desires, monetised. Saving a product link shouldn't cost you a login or a data-collection disclosure. None of it needs to leave the phone.",
+      architecture:
+        "Silo parses shared product links on-device, pulling image, title, and price without a backend in the loop, and files them into color-coded collections stored entirely in the device's own store. There are no accounts, no sync service, and no analytics — a share-sheet extension in, a tap back to the store out, and nothing in between that touches a server.",
+      outcome:
+        "On the App Store at 3.9 MB with a one-line privacy story: the list of everything you want never leaves your hand. Tap an item when you're ready and it takes you straight back to the store.",
+    },
+  },
+  {
     name: "Nova Key",
     platform: "macOS",
     kind: "On-Device AI Command Palette",

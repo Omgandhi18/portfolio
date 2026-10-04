@@ -1,0 +1,1 @@
+import{a as e,o as t}from"./index-BOnKCi_d.js";var n=t(e());function r(e,t){(0,n.useEffect)(()=>{let n=setTimeout(t,e);return()=>clearTimeout(n)},[e,t])}export{r as t};

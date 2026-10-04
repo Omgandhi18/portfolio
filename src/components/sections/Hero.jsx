@@ -12,8 +12,9 @@ import { profile } from "../../data/profile";
 import { EASE } from "../../lib/motion";
 import { HERO_DELAY } from "../../lib/intro";
 import { scrollToId } from "../../lib/lenis";
-import { terrain, windowFor } from "../scene/terrain";
-import { Cypress, Portico, SceneDefs, StonePine, SummitTemple, VillageLights } from "../scene/Props";
+import { skyOverSummit, terrain, windowFor } from "../scene/terrain";
+import { Cypress, Portico, SceneDefs, StonePine, SummitTemple, TEMPLE_HALF_WIDTH, VillageLights } from "../scene/Props";
+import Colossi from "../scene/Colossi";
 import Clouds from "../scene/Clouds";
 import Starfield from "../scene/Starfield";
 import Birds from "../scene/Birds";
@@ -39,21 +40,30 @@ function usePointer() {
   return { sx, sy };
 }
 
+const NAV_CLEAR_PX = 80; // the nav bar (h-16) and a little air under it
+const TEMPLE_SCALE = 1.55;
+
 /* Every layer of the world shares one view box, chosen so Olympus stays
-   in frame on any screen. */
+   in frame on any screen; `sky` is how much of it the colossi may rise
+   into without passing under the nav. */
+function frameFor(width, height) {
+  const aspect = (width * 1.08) / height;
+  return { viewBox: windowFor(aspect), sky: skyOverSummit(aspect, height, NAV_CLEAR_PX) };
+}
+
 function useWorldWindow(ref) {
-  const [box, setBox] = useState(() => windowFor(innerWidth / innerHeight));
+  const [frame, setFrame] = useState(() => frameFor(innerWidth, innerHeight));
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const ro = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect;
-      if (height) setBox(windowFor((width * 1.08) / height));
+      if (height) setFrame(frameFor(width, height));
     });
     ro.observe(el);
     return () => ro.disconnect();
   }, [ref]);
-  return box;
+  return frame;
 }
 
 function Layer({ depth, sink, progress, pointer, className = "", children }) {
@@ -86,7 +96,7 @@ export default function Hero() {
   const ref = useRef(null);
   const reduced = useReducedMotion();
   const pointer = usePointer();
-  const viewBox = useWorldWindow(ref);
+  const { viewBox, sky } = useWorldWindow(ref);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   // Under reduced motion the scene holds still: every layer reads a
   // progress that never moves.
@@ -128,8 +138,9 @@ export default function Hero() {
       </motion.div>
 
       <Layer depth={0.05} sink={70} progress={progress} pointer={pointer}>
-        <Sun className="right-[17%] top-[9%] sm:right-[12%] sm:top-[8%]" />
-        <Moon className="right-[18%] top-[9%] sm:right-[13%] sm:top-[8%]" />
+        {/* on wide screens the summit sits high and right, so they move out over the colossi's shoulders */}
+        <Sun className="right-[17%] top-[9%] sm:right-[12%] sm:top-[8%] lg:right-[5%]" />
+        <Moon className="right-[18%] top-[9%] sm:right-[13%] sm:top-[8%] lg:right-[6%]" />
       </Layer>
 
       <Birds />
@@ -158,7 +169,8 @@ export default function Hero() {
           <path d={terrain.massif.shadow} fill="var(--ridge-3)" opacity="0.38" clipPath="url(#massif-clip)" />
           <path d={terrain.massif.fill} fill="url(#haze-down)" />
           <path d={terrain.massif.rim} fill="none" stroke="var(--rim)" strokeWidth="1.4" opacity="0.7" vectorEffect="non-scaling-stroke" />
-          <SummitTemple x={summit[0]} y={summit[1]} scale={1.55} />
+          <Colossi summit={summit} groundAt={terrain.massifAt} sky={sky} aside={TEMPLE_HALF_WIDTH * TEMPLE_SCALE} />
+          <SummitTemple x={summit[0]} y={summit[1]} scale={TEMPLE_SCALE} />
         </World>
         <Clouds seed={8} count={5} density={0.8} drift={170} className="inset-x-0 top-[49%] h-[17%]" />
       </Layer>

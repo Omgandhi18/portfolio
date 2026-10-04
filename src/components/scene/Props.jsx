@@ -1,16 +1,20 @@
 /* Things that stand in the landscape: the temple on the summit, the
    ruin on the terrace, olive trees. All in world units (1600 x 900). */
 
+export const TEMPLE_HALF_WIDTH = 30; // the lowest step, in temple units
+
 export function SummitTemple({ x, y, scale = 1.5 }) {
   const cols = [-21, -12.6, -4.2, 4.2, 12.6, 21];
   return (
     <g transform={`translate(${x} ${y + 1}) scale(${scale})`}>
+      {/* the cella wall, so the colonnade reads against what stands behind */}
+      <rect x="-21" y="-25" width="42" height="15.5" fill="var(--marble-shade)" />
       {/* the hearth of the gods: only visible by night */}
       <g className="hidden dark:inline">
         <circle cx="0" cy="-18" r="46" fill="url(#ember-glow)" className="ember-flicker" />
       </g>
       <g fill="var(--marble)">
-        <rect x="-30" y="-4" width="60" height="4" />
+        <rect x={-TEMPLE_HALF_WIDTH} y="-4" width={TEMPLE_HALF_WIDTH * 2} height="4" />
         <rect x="-27" y="-7" width="54" height="3" />
         <rect x="-24.5" y="-9.5" width="49" height="2.5" />
         {cols.map((cx) => (

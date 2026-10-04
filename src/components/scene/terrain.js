@@ -116,27 +116,43 @@ export const terrain = {
   },
   near: { fill: silhouette(nearPts, 900), rim: lineThrough(nearPts), points: nearPts },
   ground: { fill: silhouette(groundPts, 900), rim: lineThrough(groundPts) },
-  groundAt(x) {
-    let best = groundPts[0];
-    for (const p of groundPts) if (Math.abs(p[0] - x) < Math.abs(best[0] - x)) best = p;
-    return best[1];
-  },
-  nearAt(x) {
-    let best = nearPts[0];
-    for (const p of nearPts) if (Math.abs(p[0] - x) < Math.abs(best[0] - x)) best = p;
-    return best[1];
-  },
+  groundAt: heightAt(groundPts),
+  nearAt: heightAt(nearPts),
+  massifAt: heightAt(massifPts),
 };
+
+/* The ridge height nearest x, for standing things on a range. */
+function heightAt(points) {
+  return (x) => {
+    let best = points[0];
+    for (const p of points) if (Math.abs(p[0] - x) < Math.abs(best[0] - x)) best = p;
+    return best[1];
+  };
+}
 
 /* The visible window into the world for a given box aspect: keep the
    full height, crop width so Olympus sits right of centre; when the box
    is wider than the world, show it all and let the SVG slice the sky. */
 export function windowFor(aspect) {
-  // Portrait screens get extra sky above the world, pushing the range
-  // down so the name has room over the summit.
-  const lift = aspect < 0.9 ? 220 : aspect < 1.25 ? 120 : 0;
+  const lift = liftFor(aspect);
   const h = WORLD.h + lift;
   const w = Math.min(WORLD.w, h * aspect);
   const x0 = Math.max(0, Math.min(WORLD.w - w, FOCUS_X - w * 0.74));
   return `${Math.round(x0)} ${-lift} ${Math.round(w)} ${h}`;
+}
+
+/* Portrait screens get extra sky above the world, pushing the range
+   down so the name has room over the summit and the colossi on it. */
+function liftFor(aspect) {
+  return aspect < 0.9 ? 420 : aspect < 1.25 ? 120 : 0;
+}
+
+/* World units of sky over the summit on a box of this aspect and pixel
+   height, less `clearPx` kept free at the top (for the nav). The view
+   is anchored at the ground, so a box wider than the world loses sky to
+   the crop instead of gaining it. */
+export function skyOverSummit(aspect, heightPx, clearPx) {
+  const top = Math.max(-liftFor(aspect), WORLD.h - WORLD.w / aspect);
+  const pxPerUnit = heightPx / (WORLD.h - top);
+  return summit[1] - top - clearPx / pxPerUnit;
 }

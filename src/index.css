@@ -2,267 +2,134 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Olympus — marble at dawn */
+/* Day on Olympus: cool marble, slate mountains, terracotta from the kilns. */
 :root {
-  --c-marble: 242 238 227;
-  --c-panel: 234 228 212;
-  --c-ink: 28 27 24;
-  --c-faded: 92 86 72;
-  --c-bronze: 120 95 53;
-  --c-gold: 169 142 92;
-  --dawn: rgba(169, 142, 92, 0.22);
-  --dawn-mid: rgba(169, 142, 92, 0.06);
+  --c-bg: 242 243 241;
+  --c-surface: 230 233 231;
+  --c-ink: 18 24 33;
+  --c-muted: 84 94 106;
+  --c-accent: 178 72 40;
+  --c-ground: 38 50 66;
+  --c-on-ground: 238 240 238;
+
+  --sky-top: #8fb0c9;
+  --sky-mid: #c7d7e2;
+  --sky-low: #f1e5d4;
+  --sun-glow: rgba(255, 238, 205, 0.85);
+  --ridge-1: #b9c7d3;
+  --ridge-2: #95a9bb;
+  --ridge-3: #60768c;
+  --ridge-4: #263242;
+  --haze: rgba(241, 229, 212, 0.55);
+  --rim: rgba(255, 248, 235, 0.9);
+  --snow: #fbfcfc;
+  --snow-shade: #d6dfe7;
+  --marble: #f8f6f1;
+  --marble-shade: #b9c4ce;
+  --cloud: 255 255 255;
+  --cloud-alpha: 0.92;
+  --chart-line: rgb(178 72 40 / 0.55);
+  --chart-star: rgb(18 24 33 / 0.8);
+  --sea-line: rgb(18 24 33 / 0.08);
 }
 
-/* Othrys — basalt at dusk */
+/* Night over Othrys: ink sky, moonlit snow, embers on the summit. */
 .dark {
-  --c-marble: 20 18 16;
-  --c-panel: 30 27 23;
-  --c-ink: 230 224 209;
-  --c-faded: 163 155 135;
-  --c-bronze: 194 164 104;
-  --c-gold: 217 188 130;
-  --dawn: rgba(217, 188, 130, 0.13);
-  --dawn-mid: rgba(217, 188, 130, 0.035);
+  --c-bg: 12 17 27;
+  --c-surface: 20 27 40;
+  --c-ink: 233 236 239;
+  --c-muted: 150 161 174;
+  --c-accent: 230 120 80;
+  --c-ground: 8 12 20;
+  --c-on-ground: 233 236 239;
+
+  --sky-top: #03060d;
+  --sky-mid: #0a1121;
+  --sky-low: #1b2238;
+  --sun-glow: rgba(200, 215, 240, 0.35);
+  --ridge-1: #1c253b;
+  --ridge-2: #151d30;
+  --ridge-3: #0f1625;
+  --ridge-4: #080c14;
+  --haze: rgba(27, 34, 56, 0.6);
+  --rim: rgba(176, 196, 232, 0.4);
+  --snow: #8e9bb1;
+  --snow-shade: #4f5c73;
+  --marble: #9aa5b8;
+  --marble-shade: #46526a;
+  --cloud: 18 25 40;
+  --cloud-alpha: 0.85;
+  --chart-line: rgb(230 120 80 / 0.6);
+  --chart-star: rgb(233 236 239 / 0.95);
+  --sea-line: rgb(233 236 239 / 0.07);
 }
 
 html {
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Lenis owns smooth scrolling; native smooth only when it is absent. */
+html:not(.lenis) {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
 body {
-  @apply bg-marble font-body text-ink antialiased;
-  position: relative;
-  transition: background-color 0.5s ease, color 0.5s ease;
-  /* Oldstyle figures — dates sit into the text like engraved numerals */
-  font-feature-settings: "onum" 1;
+  @apply bg-bg font-sans text-ink antialiased;
+  font-feature-settings: "ss01" 1;
+  text-rendering: optimizeLegibility;
 }
 
-/* Stone grain — felt, not seen */
-body::before {
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Grain: fixed, never on a scrolling layer. Felt, not seen. */
+body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 90;
   pointer-events: none;
-  opacity: 0.5;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.009' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.42 0 0 0 0 0.36 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='700' height='700' filter='url(%23m)'/%3E%3C/svg%3E");
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.2 0 0 0 0 0.22 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");
 }
-
-.dark body::before {
-  opacity: 0.85;
-}
-
-/* Stars over Othrys — they breathe, slowly */
-.star-twinkle {
-  animation: star-twinkle 5s ease-in-out infinite;
-}
-
-@keyframes star-twinkle {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-/* Birds over Olympus — riding a slow thermal */
-.bird-glide {
-  animation: bird-glide 14s ease-in-out infinite;
-}
-
-@keyframes bird-glide {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 16px -7px;
-  }
-}
-
-#root {
-  position: relative;
-  z-index: 1;
+.dark body::after {
+  opacity: 0.1;
+  mix-blend-mode: screen;
 }
 
 ::selection {
-  background: rgb(var(--c-bronze));
-  color: rgb(var(--c-marble));
+  background: rgb(var(--c-accent));
+  color: rgb(var(--c-bg));
 }
 
-/* Light from above — dawn on Olympus, dusk over Othrys */
-.summit-light {
-  background: radial-gradient(
-    ellipse 80% 100% at 50% -20%,
-    var(--dawn),
-    var(--dawn-mid) 50%,
-    transparent 75%
-  );
-}
-
-/* One-time light sweep across the hero name — sunlight over carved stone */
-.hero-sheen {
-  background-image: linear-gradient(
-    105deg,
-    transparent 38%,
-    rgba(222, 196, 142, 0.9) 50%,
-    transparent 62%
-  );
-  background-size: 260% 100%;
-  background-position: 200% 0;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: hero-sheen 3.2s ease-in-out 1.2s 1 both;
-}
-
-@keyframes hero-sheen {
-  from {
-    background-position: 200% 0;
-  }
-  to {
-    background-position: -120% 0;
-  }
-}
-
-/* The hearth breathes */
-.flame-flicker {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: flame-flicker 3.4s ease-in-out infinite;
-}
-
-@keyframes flame-flicker {
-  0%,
-  100% {
-    transform: scale(1, 1);
-  }
-  28% {
-    transform: scale(0.97, 1.06) rotate(-0.5deg);
-  }
-  52% {
-    transform: scale(1.03, 0.94) rotate(0.6deg);
-  }
-  74% {
-    transform: scale(0.99, 1.04);
-  }
-}
-
-/* The ship still sails */
-.ship-rock {
-  transform-box: fill-box;
-  transform-origin: 50% 78%;
-  animation: ship-rock 7s ease-in-out infinite;
-}
-
-@keyframes ship-rock {
-  0%,
-  100% {
-    transform: rotate(-1.3deg) translateY(0);
-  }
-  50% {
-    transform: rotate(1.3deg) translateY(-1.5px);
-  }
-}
-
-.waves-drift {
-  animation: waves-drift 5s ease-in-out infinite;
-}
-
-@keyframes waves-drift {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(3.5px);
-  }
-}
-
-/* Gilded rules — light catching an engraved line */
-.rule-gilded {
-  background: linear-gradient(
-    90deg,
-    rgb(var(--c-bronze) / 0.6),
-    rgb(var(--c-bronze) / 0.06)
-  );
-}
-
-.rule-gilded-in {
-  background: linear-gradient(
-    90deg,
-    rgb(var(--c-ink) / 0.08),
-    rgb(var(--c-bronze) / 0.5)
-  );
-}
-
-.rule-gilded-out {
-  background: linear-gradient(
-    90deg,
-    rgb(var(--c-bronze) / 0.5),
-    rgb(var(--c-ink) / 0.08)
-  );
-}
-
-/* Zeus, briefly — over Othrys only */
-.sky-flash {
-  animation: sky-flash 1.3s ease-out 1 both;
-}
-
-@keyframes sky-flash {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  6% {
-    opacity: 0.5;
-  }
-  16% {
-    opacity: 0.05;
-  }
-  28% {
-    opacity: 0.75;
-  }
-  55% {
-    opacity: 0.1;
-  }
-  70% {
-    opacity: 0.3;
-  }
-}
-
-.bolt {
-  animation: bolt-flash 1.3s ease-out 1 both;
-}
-
-@keyframes bolt-flash {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  6% {
-    opacity: 0.85;
-  }
-  18% {
-    opacity: 0;
-  }
-  28% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 0;
-  }
-}
-
-/* Bronze focus — never the browser blue */
 :focus-visible {
-  outline: 2px solid rgb(var(--c-bronze));
+  outline: 2px solid rgb(var(--c-accent));
   outline-offset: 3px;
+}
+
+/* Theme travel: the new realm opens as a circle from the dial. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  z-index: 2;
 }
 
 .skip-link {
@@ -270,50 +137,204 @@ body::before {
   top: -100px;
   left: 1rem;
   z-index: 100;
-  border: 1px solid rgb(var(--c-ink) / 0.16);
-  background: rgb(var(--c-marble));
-  padding: 0.6rem 1.2rem;
-  font-variant-caps: small-caps;
-  letter-spacing: 0.16em;
-  color: rgb(var(--c-ink));
+  background: rgb(var(--c-ink));
+  color: rgb(var(--c-bg));
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
 }
-
 .skip-link:focus-visible {
   top: 1rem;
 }
 
+/* ---------- Sky motion ---------- */
+
+@keyframes cloud-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.cloud-drift {
+  animation: cloud-drift var(--drift, 140s) linear infinite;
+}
+
+@keyframes wing-beat {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(-0.2);
+  }
+}
+.wing-beat {
+  transform-box: fill-box;
+  transform-origin: 50% 70%;
+  animation: wing-beat var(--beat, 0.9s) ease-in-out infinite;
+}
+
+@keyframes bird-cross {
+  from {
+    transform: translate3d(-12vw, 0, 0);
+  }
+  to {
+    transform: translate3d(112vw, -6vh, 0);
+  }
+}
+.bird-cross {
+  animation: bird-cross var(--cross, 46s) linear infinite;
+}
+
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+.glow-breathe {
+  animation: glow-breathe 7s ease-in-out infinite;
+}
+
+@keyframes ember-flicker {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  30% {
+    opacity: 0.55;
+  }
+  55% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.7;
+  }
+}
+.ember-flicker {
+  animation: ember-flicker 2.6s ease-in-out infinite;
+}
+
+@keyframes flame {
+  0%,
+  100% {
+    transform: scale(1, 1) rotate(0deg);
+  }
+  25% {
+    transform: scale(0.96, 1.07) rotate(-1.5deg);
+  }
+  55% {
+    transform: scale(1.04, 0.95) rotate(1.2deg);
+  }
+  80% {
+    transform: scale(0.98, 1.04) rotate(-0.6deg);
+  }
+}
+.flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flame 2.2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.6deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(1.6deg);
+  }
+}
+.bob {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: bob 4.8s ease-in-out infinite;
+}
+
+@keyframes meander-slide {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-24px, 0, 0);
+  }
+}
+.meander-slide {
+  animation: meander-slide 3.2s linear infinite;
+}
+
+@keyframes kite-sway {
+  0%,
+  100% {
+    transform: rotate(-6deg) translateY(0);
+  }
+  50% {
+    transform: rotate(5deg) translateY(-3px);
+  }
+}
+.kite-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: kite-sway 5s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .flame-flicker,
-  .ship-rock,
-  .waves-drift,
-  .hero-sheen,
-  .sky-flash,
-  .bolt {
+  .cloud-drift,
+  .wing-beat,
+  .bird-cross,
+  .glow-breathe,
+  .ember-flicker,
+  .flame,
+  .bob,
+  .meander-slide,
+  .kite-sway {
     animation: none !important;
   }
 }
 
 @layer components {
-  .meta-caps {
-    @apply font-body text-sm tracking-epigraph;
-    font-variant-caps: small-caps;
+  /* The one label style. Rationed: hero and the works intro only. */
+  .label {
+    @apply font-sans text-[0.7rem] font-semibold uppercase tracking-label;
   }
 
-  /* Underline draws in from the left — a chisel stroke */
-  .link-carve {
-    text-decoration: none;
-    padding-bottom: 2px;
-    background-image: linear-gradient(rgb(var(--c-bronze)), rgb(var(--c-bronze))),
-      linear-gradient(rgb(var(--c-bronze) / 0.35), rgb(var(--c-bronze) / 0.35));
+  /* Underline that draws in from the left, like a stylus stroke. */
+  .link-line {
+    background-image: linear-gradient(currentColor, currentColor);
     background-repeat: no-repeat;
-    background-position: 0 100%, 0 100%;
-    background-size: 0% 1px, 100% 1px;
-    transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      color 0.3s ease;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    padding-bottom: 2px;
+    transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-line:hover,
+  .link-line:focus-visible {
+    background-size: 100% 1px;
   }
 
-  .link-carve:hover,
-  .link-carve:focus-visible {
-    background-size: 100% 1px, 100% 1px;
+  /* Giant outlined Greek, carved faintly into the wall behind a section. */
+  .ghost-word {
+    @apply pointer-events-none select-none font-sans font-extralight uppercase leading-none;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(var(--c-ink) / 0.09);
+    letter-spacing: 0.08em;
+  }
+
+  /* Square buttons. The page is all-sharp: UI corners are 0. */
+  .btn {
+    @apply relative inline-flex select-none items-center gap-3 whitespace-nowrap px-6 py-3.5 text-sm font-semibold tracking-wide transition-[transform,background-color,color,border-color] duration-300 ease-myth active:translate-y-px active:scale-[0.98];
+  }
+  .btn-solid {
+    @apply bg-accent text-bg hover:bg-ink;
+  }
+  .btn-ghost {
+    @apply border border-current;
   }
 }

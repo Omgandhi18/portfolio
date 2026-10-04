@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "@fontsource/marcellus";
-import "@fontsource-variable/eb-garamond";
-import "@fontsource-variable/eb-garamond/wght-italic.css";
+import "@fontsource-variable/cormorant/wght.css";
+import "@fontsource-variable/cormorant/wght-italic.css";
+import "@fontsource-variable/manrope/wght.css";
 import "./index.css";
 import App from "./App";
 

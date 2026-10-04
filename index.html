@@ -5,31 +5,32 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#F2EEE3" />
+    <meta name="theme-color" content="#F2F3F1" />
 
     <!-- Primary -->
-    <title>Om Gandhi — Senior Mobile Engineer</title>
+    <title>Om Gandhi · Senior Mobile Engineer</title>
     <meta name="description" content="Senior Mobile Engineer specialising in iOS, Android, and React Native. 3+ years shipping production apps for 500+ business customers. Leading engineering at Magenta Insights." />
 
     <!-- Open Graph -->
     <meta property="og:type"        content="website" />
     <meta property="og:url"         content="https://www.omgandhi.dev" />
-    <meta property="og:title"       content="Om Gandhi — Senior Mobile Engineer" />
+    <meta property="og:title"       content="Om Gandhi · Senior Mobile Engineer" />
     <meta property="og:description" content="Senior Mobile Engineer specialising in iOS, Android, and React Native. 3+ years shipping production apps for 500+ business customers." />
     <meta property="og:image"       content="https://www.omgandhi.dev/og-image.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card"        content="summary_large_image" />
-    <meta name="twitter:title"       content="Om Gandhi — Senior Mobile Engineer" />
+    <meta name="twitter:title"       content="Om Gandhi · Senior Mobile Engineer" />
     <meta name="twitter:description" content="Senior Mobile Engineer specialising in iOS, Android, and React Native." />
     <meta name="twitter:image"       content="https://www.omgandhi.dev/og-image.png" />
 
     <script>
       (function () {
-        var t = localStorage.theme;
+        var t;
+        try { t = localStorage.theme; } catch (e) {}
         if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) {
           document.documentElement.classList.add("dark");
-          document.querySelector('meta[name="theme-color"]').setAttribute("content", "#141210");
+          document.querySelector('meta[name="theme-color"]').setAttribute("content", "#0C111B");
         }
       })();
     </script>
@@ -74,7 +75,7 @@
           "name": "Oink!",
           "operatingSystem": "iOS",
           "applicationCategory": "FinanceApplication",
-          "description": "Personal finance tracker with fully on-device data persistence — zero backend.",
+          "description": "Personal finance tracker with fully on-device data persistence and zero backend.",
           "url": "https://apps.apple.com/us/app/oink/id6705128036",
           "author": { "@type": "Person", "name": "Om Gandhi", "url": "https://www.omgandhi.dev/" }
         },
@@ -83,7 +84,7 @@
           "name": "Translo",
           "operatingSystem": "iOS, macOS",
           "applicationCategory": "UtilitiesApplication",
-          "description": "Fully offline on-device ML translator — zero latency, no server dependency.",
+          "description": "Fully offline on-device ML translator: zero latency, no server dependency.",
           "url": "https://apps.apple.com/us/app/translo/id6659895212",
           "author": { "@type": "Person", "name": "Om Gandhi", "url": "https://www.omgandhi.dev/" }
         }

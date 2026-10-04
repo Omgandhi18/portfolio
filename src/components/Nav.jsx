@@ -1,66 +1,97 @@
 import { useEffect, useState } from "react";
-import { motion, useScroll } from "framer-motion";
-import { profile } from "../data/profile";
-import ThemeToggle from "./ThemeToggle";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { Command } from "@phosphor-icons/react";
+import { scrollToId } from "../lib/lenis";
+import { EASE } from "../lib/motion";
+import { HERO_DELAY } from "../lib/intro";
+import ThemeDial from "./ThemeDial";
 
 const LINKS = [
-  { href: "#ethos", id: "ethos", label: "About" },
-  { href: "#erga", id: "erga", label: "Work" },
-  { href: "#poreia", id: "poreia", label: "Journey" },
-  { href: "#epaphe", id: "epaphe", label: "Contact" },
+  { id: "ethos", label: "About" },
+  { id: "erga", label: "Work" },
+  { id: "poreia", label: "Journey" },
+  { id: "epaphe", label: "Contact" },
 ];
 
-const SECTION_IDS = LINKS.map((l) => l.id);
-
-function useActiveSection(ids) {
+function useActiveSection() {
   const [active, setActive] = useState(null);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        }
+        for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
       },
-      { rootMargin: "-40% 0px -55% 0px" }
+      { rootMargin: "-45% 0px -50% 0px" }
     );
-    ids.forEach((id) => {
+    ["top", ...LINKS.map((l) => l.id)].forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, [ids]);
-
-  return active;
+  }, []);
+  return active === "top" ? null : active;
 }
 
 export default function Nav() {
-  const active = useActiveSection(SECTION_IDS);
-  const { scrollYProgress } = useScroll();
+  const active = useActiveSection();
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+  const [solid, setSolid] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    const goingDown = y > prev;
+    if (y < 120) setHidden(false);
+    else if (goingDown && y - prev > 4) setHidden(true);
+    else if (!goingDown && prev - y > 4) setHidden(false);
+    setSolid(y > innerHeight * 0.85);
+  });
+
+  const go = (id) => (e) => {
+    e.preventDefault();
+    scrollToId(id);
+  };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-hairline bg-marble/85 backdrop-blur-sm">
-      <nav className="mx-auto flex h-16 max-w-site items-center justify-between px-6 sm:px-10">
-        <a
-          href="#top"
-          className="font-display text-2xl leading-none text-bronze transition-colors hover:text-ink"
-          aria-label="Back to top"
-        >
-          {profile.mark}
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: hidden ? -80 : 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: EASE, delay: hidden ? 0 : 0 }}
+      className={`fixed inset-x-0 top-0 z-nav transition-[background-color,border-color,backdrop-filter] duration-500 ${
+        solid ? "border-b border-line bg-bg/80 backdrop-blur-md" : "border-b border-transparent"
+      }`}
+      style={{ transitionDelay: "0s" }}
+    >
+      <motion.nav
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: HERO_DELAY + 1.2 }}
+        aria-label="Primary"
+        className="mx-auto flex h-16 max-w-site items-center justify-between px-5 sm:px-10"
+      >
+        <a href="#top" onClick={go("top")} aria-label="Om Gandhi, back to top" className="font-display text-3xl leading-none text-accent">
+          Ω
         </a>
-        <div className="flex items-center gap-3 sm:gap-8">
-          <ul className="flex items-center gap-2.5 sm:gap-8">
-            {LINKS.map(({ href, id, label }) => (
-              <li key={href}>
+        <div className="flex items-center gap-2 sm:gap-6">
+          <ul className="flex items-center gap-3 sm:gap-7">
+            {LINKS.map(({ id, label }) => (
+              <li key={id} className="relative">
                 <a
-                  href={href}
+                  href={`#${id}`}
+                  onClick={go(id)}
                   aria-current={active === id ? "true" : undefined}
-                  className={`meta-caps text-xs transition-colors hover:text-bronze sm:text-sm ${
-                    active === id ? "text-bronze" : "text-faded"
+                  className={`py-2 text-[0.8rem] font-semibold transition-colors sm:text-sm ${
+                    active === id ? "text-ink" : "text-ink/60 hover:text-ink"
                   }`}
                 >
                   {label}
                 </a>
+                {active === id && (
+                  <motion.span
+                    layoutId="nav-mark"
+                    className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-accent"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
               </li>
             ))}
           </ul>
@@ -68,18 +99,13 @@ export default function Nav() {
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent("palette:open"))}
             aria-label="Open command palette"
-            className="hidden border border-hairline px-2 py-1 font-body text-xs text-faded transition-colors hover:border-bronze/50 hover:text-bronze sm:block"
+            className="hidden h-9 items-center gap-1 border border-line px-2.5 text-xs font-semibold text-ink/70 transition-colors hover:border-ink hover:text-ink sm:inline-flex"
           >
-            ⌘K
+            <Command size={13} weight="bold" />K
           </button>
-          <ThemeToggle />
+          <ThemeDial />
         </div>
-      </nav>
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-px origin-left bg-bronze"
-        style={{ scaleX: scrollYProgress }}
-      />
-    </header>
+      </motion.nav>
+    </motion.header>
   );
 }

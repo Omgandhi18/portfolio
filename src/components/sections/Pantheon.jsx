@@ -5,6 +5,7 @@ import { EASE } from "../../lib/motion";
 import CountUp from "../ui/CountUp";
 import Decrypt from "../ui/Decrypt";
 import SplitHeading from "../ui/SplitHeading";
+import OmegaMark from "../ui/OmegaMark";
 import { Laurel } from "../art/Ornaments";
 
 /* The temple builds itself as it comes into view: steps laid, columns
@@ -44,8 +45,8 @@ function Pediment() {
         <span className="hidden w-14 text-accent/70 sm:block">
           <Laurel />
         </span>
-        <span className="font-display text-3xl leading-none text-accent sm:text-[3.4rem]" aria-hidden="true">
-          Ω
+        <span className="text-3xl text-accent sm:text-[3.4rem]" aria-hidden="true">
+          <OmegaMark />
         </span>
         <span className="hidden w-14 -scale-x-100 text-accent/70 sm:block">
           <Laurel />

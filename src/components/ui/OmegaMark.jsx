@@ -8,12 +8,17 @@ const OMEGA_PATH =
 /* Tight box around the glyph's ink within the favicon's 32-unit canvas. */
 const VIEW_BOX = "5 5.59 22 20.82";
 
-/* Sized in em of the parent's font-size: Georgia's Ω ink is 0.75em wide and
-   0.71em tall, so a parent that set the old text mark's size keeps it. */
-export default function OmegaMark({ className = "" }) {
+/* The bare glyph. Inside another SVG, place it with x / y / width / height. */
+export function OmegaGlyph(props) {
   return (
-    <svg viewBox={VIEW_BOX} aria-hidden="true" fill="currentColor" className={`block h-[0.71em] w-[0.75em] ${className}`}>
+    <svg viewBox={VIEW_BOX} aria-hidden="true" {...props}>
       <path d={OMEGA_PATH} />
     </svg>
   );
+}
+
+/* In HTML, sized in em of the parent's font-size: Georgia's Ω ink is 0.75em
+   wide and 0.71em tall, so a parent that set the old text mark's size keeps it. */
+export default function OmegaMark({ className = "" }) {
+  return <OmegaGlyph fill="currentColor" className={`block h-[0.71em] w-[0.75em] ${className}`} />;
 }

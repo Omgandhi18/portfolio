@@ -1,3 +1,5 @@
+import { OmegaGlyph } from "../ui/OmegaMark";
+
 /* A trireme under sail, the painted eye on her bow, Ω on the canvas.
    Drawn facing right. */
 export default function Trireme({ className = "" }) {
@@ -15,9 +17,8 @@ export default function Trireme({ className = "" }) {
           strokeLinejoin="round"
         />
         <path d="M45 15 C41 26 41 38 46 50 C60 55 76 55 90 50 C95 38 95 26 91 15 Z" fill="rgb(var(--c-accent) / 0.16)" />
-        <text x="68" y="42" textAnchor="middle" fontFamily="Cormorant Variable, serif" fontSize="22" fill="rgb(var(--c-accent))">
-          Ω
-        </text>
+        {/* a 22-unit Ω centred on the mast, sitting on y=42 */}
+        <OmegaGlyph x="59.75" y="26.4" width="16.5" height="15.6" fill="rgb(var(--c-accent))" />
         <path d="M68 8 L78 10 L68 12" fill="rgb(var(--c-accent))" />
         <path d="M46 50 L30 60 M90 50 L110 60" stroke="rgb(var(--c-ink) / 0.5)" strokeWidth="0.8" />
         {/* hull: curling stern on the left, ram on the right */}

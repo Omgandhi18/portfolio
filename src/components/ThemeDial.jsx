@@ -16,7 +16,7 @@ export default function ThemeDial({ className = "" }) {
         toggleTheme({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
       }}
       aria-label={label}
-      title={dark ? "To Olympus, by day" : "To Othrys, by night"}
+      title={dark ? "Olympus, by day" : "Olympus, by night"}
       className={`relative h-9 w-9 overflow-hidden border border-line text-ink transition-colors hover:border-ink ${className}`}
     >
       <motion.span

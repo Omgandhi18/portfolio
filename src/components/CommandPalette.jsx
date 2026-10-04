@@ -41,10 +41,10 @@ function buildCommands(close) {
       run: open(p.links.appStore),
     })),
     {
-      label: dark ? "Travel to Olympus" : "Travel to Othrys",
+      label: dark ? "Sunrise on Olympus" : "Nightfall on Olympus",
       hint: dark ? "Light mode" : "Dark mode",
       Icon: dark ? Sun : MoonStars,
-      keywords: "theme dark light mode olympus othrys night day",
+      keywords: "theme dark light mode olympus night day sunrise nightfall",
       run: () => {
         close();
         setTimeout(() => toggleTheme(), 150);

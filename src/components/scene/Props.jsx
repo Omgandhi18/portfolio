@@ -14,7 +14,8 @@ export function SummitTemple({ x, y, scale = 1.5 }) {
         <circle cx="0" cy="-18" r="46" fill="url(#ember-glow)" className="ember-flicker" />
       </g>
       <g fill="var(--marble)">
-        <rect x={-TEMPLE_HALF_WIDTH} y="-4" width={TEMPLE_HALF_WIDTH * 2} height="4" />
+        {/* data-summit: Poseidon's flood rises to here */}
+        <rect data-summit x={-TEMPLE_HALF_WIDTH} y="-4" width={TEMPLE_HALF_WIDTH * 2} height="4" />
         <rect x="-27" y="-7" width="54" height="3" />
         <rect x="-24.5" y="-9.5" width="49" height="2.5" />
         {cols.map((cx) => (

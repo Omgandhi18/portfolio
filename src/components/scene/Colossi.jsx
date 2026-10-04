@@ -11,6 +11,15 @@ const SHADE_DEPTH = 2.4;
 const PLINTH = 4;
 const PLINTH_HALF = 18;
 
+/* Zeus's thunderbolt: where his hand holds it, how it's turned, and its
+   sharp end in the bolt's own frame. The summoned storm aims for that. */
+const BOLT = { x: 22, y: -106, turn: -165, shape: "M-2 -18 H-9 L-3 -5 H-9 L5 18 L1 2 H7 Z", point: [5, 18] };
+const BOLT_TIP = (() => {
+  const a = (BOLT.turn * Math.PI) / 180;
+  const [px, py] = BOLT.point;
+  return [BOLT.x + px * Math.cos(a) - py * Math.sin(a), BOLT.y + px * Math.sin(a) + py * Math.cos(a)];
+})();
+
 function Arm({ points, hand }) {
   return (
     <>
@@ -57,7 +66,7 @@ function Zeus() {
       ))}
       {/* the thunderbolt, raised to strike on the moon's side, away from the name */}
       <Arm points="11,-76 20.5,-87 22,-103.5" hand={[22, -104]} />
-      <path transform="translate(22 -106) rotate(-165)" d="M-2 -18 H-9 L-3 -5 H-9 L5 18 L1 2 H7 Z" />
+      <path transform={`translate(${BOLT.x} ${BOLT.y}) rotate(${BOLT.turn})`} d={BOLT.shape} />
       <Arm points="-11,-76 -17,-63 -18.5,-50" hand={[-18.6, -49]} />
     </Figure>
   );
@@ -115,7 +124,6 @@ const GODS = { zeus: Zeus, poseidon: Poseidon, hades: Hades };
    three shrink together to fit under the nav. */
 const ZEUS_SCALE = 1.55;
 const BROTHER_SCALE = 1.15;
-const BOLT_TIP = 125; // figure units from Zeus's feet to the bolt's tip
 const TUCK = 3; // world units the brothers' plinths sit behind the temple
 const MIN_FIT = 0.4; // below this they would read as ornaments, not gods
 
@@ -144,7 +152,7 @@ function Colossus({ god, x, y, scale, drop }) {
         <Plinth drop={drop / scale} />
       </g>
       <g transform={`translate(0 ${-PLINTH})`}>
-        <use href={`#colossus-${god}`} color="var(--marble)" />
+        <use href={`#colossus-${god}`} color="var(--marble)" data-colossus={god} />
         <use href={`#colossus-${god}`} color="var(--marble-shade)" mask={`url(#colossus-${god}-shade)`} opacity="0.75" />
         <Folds />
       </g>
@@ -152,12 +160,21 @@ function Colossus({ god, x, y, scale, drop }) {
   );
 }
 
+/* Where the tip of Zeus's raised bolt is on screen, or null when his
+   colossus isn't in view. */
+export function zeusBoltOnScreen() {
+  const ctm = document.querySelector('[data-colossus="zeus"]')?.getScreenCTM();
+  if (!ctm) return null;
+  const { x, y } = new DOMPoint(BOLT_TIP[0], BOLT_TIP[1]).matrixTransform(ctm);
+  return x > 0 && x < innerWidth && y > 0 && y < innerHeight ? { x, y } : null;
+}
+
 /* Draw before the temple, so it stands in front of Zeus. `groundAt(x)`
    gives the slope's height under each pedestal, `sky` the world units
    free over the summit, `aside` the temple's half-width in world units. */
 export default function Colossi({ summit, groundAt, sky, aside }) {
   const [sx, sy] = summit;
-  const fit = Math.max(MIN_FIT, Math.min(1, sky / ((PLINTH + BOLT_TIP) * ZEUS_SCALE)));
+  const fit = Math.max(MIN_FIT, Math.min(1, sky / ((PLINTH - BOLT_TIP[1]) * ZEUS_SCALE)));
   const brother = BROTHER_SCALE * fit;
   const flank = aside + PLINTH_HALF * brother - TUCK;
   const stations = [

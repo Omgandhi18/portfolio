@@ -10,7 +10,9 @@ import {
   LinkedinLogo,
   MagnifyingGlass,
   MoonStars,
+  Skull,
   Sun,
+  Waves,
 } from "@phosphor-icons/react";
 import { profile } from "../data/profile";
 import { projects } from "../data/projects";
@@ -26,6 +28,10 @@ function buildCommands(close) {
   const open = (url) => () => {
     close();
     window.open(url, "_blank", "noopener");
+  };
+  const summon = (god) => () => {
+    close();
+    setTimeout(() => window.dispatchEvent(new CustomEvent(god)), 200);
   };
   const dark = isDark();
   return [
@@ -55,10 +61,21 @@ function buildCommands(close) {
       hint: "Weather",
       Icon: Lightning,
       keywords: "zeus lightning storm thunder",
-      run: () => {
-        close();
-        setTimeout(() => window.dispatchEvent(new CustomEvent("zeus")), 200);
-      },
+      run: summon("zeus"),
+    },
+    {
+      label: "Summon Poseidon",
+      hint: "Sea",
+      Icon: Waves,
+      keywords: "poseidon sea ocean flood waves trident kraken serpent",
+      run: summon("poseidon"),
+    },
+    {
+      label: "Summon Hades",
+      hint: "Underworld",
+      Icon: Skull,
+      keywords: "hades underworld dead army skeletons cerberus",
+      run: summon("hades"),
     },
     {
       label: "Download résumé",

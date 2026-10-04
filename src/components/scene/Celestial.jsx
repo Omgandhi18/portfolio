@@ -38,7 +38,7 @@ export function Moon({ className = "" }) {
       <div className="relative h-[6.5vmin] w-[6.5vmin]">
         <div
           className="absolute inset-0 rounded-full"
-          style={{ boxShadow: "inset -1.5vmin 0.6vmin 0 0 #e6eaf1", filter: "drop-shadow(0 0 14px rgba(200,214,240,0.45))" }}
+          style={{ boxShadow: "inset 1.15vmin -1.15vmin 0 0 #e6eaf1", filter: "drop-shadow(0 0 14px rgba(200,214,240,0.45))" }}
         />
       </div>
     </div>

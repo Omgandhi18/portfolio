@@ -5,6 +5,7 @@ import { scrollToId } from "../lib/lenis";
 import { EASE } from "../lib/motion";
 import { HERO_DELAY } from "../lib/intro";
 import ThemeDial from "./ThemeDial";
+import OmegaMark from "./ui/OmegaMark";
 
 const LINKS = [
   { id: "ethos", label: "About" },
@@ -68,8 +69,8 @@ export default function Nav() {
         aria-label="Primary"
         className="mx-auto flex h-16 max-w-site items-center justify-between px-5 sm:px-10"
       >
-        <a href="#top" onClick={go("top")} aria-label="Om Gandhi, back to top" className="font-display text-3xl leading-none text-accent">
-          Ω
+        <a href="#top" onClick={go("top")} aria-label="Om Gandhi, back to top" className="text-3xl text-accent">
+          <OmegaMark />
         </a>
         <div className="flex items-center gap-2 sm:gap-6">
           <ul className="flex items-center gap-3 sm:gap-7">
